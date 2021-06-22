@@ -5,8 +5,10 @@ import Footer from '../../components/Footer';
 import LoginComponent from '../../components/LoginComponent';
 import LogoNavBar from '../../components/LogoNavBar';
 import SectionCallAction from '../../components/SectionCallAction';
+import { useAuth } from '../../hooks/auth';
 
 const Payment:React.FC = ()=>{
+	const {user}= useAuth();
 	useEffect(()=>{
 		loadScript();
 	})
@@ -110,7 +112,10 @@ const Payment:React.FC = ()=>{
 
 							<li className="active"><Link to="/pagamentos">Pagamentos</Link></li>		
 
-							<li><a href="JavaScript:Void(0);" data-toggle="modal" data-target="#signup">Criar conta</a></li>	
+							{user==undefined &&(
+								<li><a href="JavaScript:Void(0);" data-toggle="modal" data-target="#signup">Criar conta</a></li>
+							)}
+							
 							</ul>
 							
 							<ul className="nav-menu nav-menu-social align-to-right">

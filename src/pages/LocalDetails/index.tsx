@@ -6,8 +6,10 @@ import SectionCallAction from '../../components/SectionCallAction';
 import {Link} from 'react-router-dom';
 import LogoNavBar from '../../components/LogoNavBar';
 import { cidades, locais } from '../../utils/contents';
+import NavBarLoged from '../../components/NavBarLoged';
+import { useAuth } from '../../hooks/auth';
 const LocalDetails = () =>{
-
+	const {user}:any= useAuth();
 	useEffect(() => {
 		loadScripts();
 	});
@@ -130,20 +132,13 @@ const LocalDetails = () =>{
 
 							<li><Link to="/noticias">Notícias</Link></li>
 			
+							{user==undefined &&(
 								<li><a href="JavaScript:Void(0);" data-toggle="modal" data-target="#signup">Criar conta</a></li>
+							)}
 								
 							</ul>
 							
-							<ul className="nav-menu nav-menu-social align-to-right">
-								
-								<li>
-									<a href="#" data-toggle="modal" data-target="#login">
-										<i className="fas fa-user-circle mr-1"></i>Login</a>
-								</li>
-								<li className="add-listing theme-bg">
-									<a href="/criar-propriedade">Adicionar Local</a>
-								</li>
-							</ul>
+							<NavBarLoged/>
 						</div>
 					</nav>
 				</div>

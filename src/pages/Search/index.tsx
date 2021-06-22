@@ -6,10 +6,12 @@ import SectionCallAction from '../../components/SectionCallAction';
 import {Link, useLocation} from 'react-router-dom';
 import LogoNavBar from '../../components/LogoNavBar';
 import { cidades, locais, tiposLocais } from '../../utils/contents';
+import { useAuth } from '../../hooks/auth';
+import NavBarLoged from '../../components/NavBarLoged';
 
 
 const Search:React.FC =()=>{
-
+const {user}:any = useAuth()
 	useEffect(()=>{
 		loadScript();
 	})
@@ -113,25 +115,16 @@ const Search:React.FC =()=>{
 							<li><Link to="#">Quem somos?</Link></li>
 	
 							<li className="active"><Link to="/pesquisa">Pesquisa</Link></li>
-	
 
 							<li><Link to="/noticias">Notícias</Link></li>
 									
-									
-							<li><a href="JavaScript:Void(0);" data-toggle="modal" data-target="#signup">Criar conta</a></li>
+							{user==undefined &&(
+									<li><a href="JavaScript:Void(0);" data-toggle="modal" data-target="#signup">Criar conta</a></li>
+									)}
 									
 							</ul>
 							
-							<ul className="nav-menu nav-menu-social align-to-right">
-								
-								<li>
-									<a href="#" data-toggle="modal" data-target="#login">
-										<i className="fas fa-user-circle mr-1"></i>Login</a>
-								</li>
-								<li className="add-listing theme-bg">
-									<a href="/criar-propriedade">Adicionar local</a>
-								</li>
-							</ul>
+							<NavBarLoged/>
 						</div>
 					</nav>
 				</div>

@@ -9,18 +9,16 @@ import { useToast } from '../../hooks/toast';
 import { useAuth } from '../../hooks/auth';
 import LogoNavBar from '../../components/LogoNavBar';
 import { cidades, locais, tiposLocais } from '../../utils/contents';
+import NavBarLoged from '../../components/NavBarLoged';
 
 
 
 
 const Home:React.FC = () =>{
-	const{user} = useAuth();
+	const{user}:any = useAuth();
 
 	console.log(user)
-	useEffect(() => {
-		loadScripts();
-		
-	});
+
 
 	function loadScripts(){
 	
@@ -95,7 +93,7 @@ const Home:React.FC = () =>{
     return(
 	
 		<body className="default-skin">
-
+		<>
         <div id="main-wrapper">
 		
         
@@ -118,21 +116,14 @@ const Home:React.FC = () =>{
 							<li><Link to="/noticias">Notícias</Link></li>		
 
 							<li><Link to="/pagamentos">Pagamentos</Link></li>		
-
-							<li><a href="JavaScript:Void(0);" data-toggle="modal" data-target="#signup">Criar conta</a></li>
+							{user==undefined &&(
+								<li><a href="JavaScript:Void(0);" data-toggle="modal" data-target="#signup">Criar conta</a></li>
+							)}
+							
 								
 							</ul>
 							
-							<ul className="nav-menu nav-menu-social align-to-right">
-								
-								<li>
-									<a href="#" data-toggle="modal" data-target="#login">
-										<i className="fas fa-user-circle mr-1"></i>Login</a>
-								</li>
-								<li className="add-listing theme-bg">
-									<a href="/criar-propriedade">Adicionar um local</a>
-								</li>
-							</ul>
+							<NavBarLoged/>
 						</div>
 					</nav>
 				</div>
@@ -591,7 +582,7 @@ const Home:React.FC = () =>{
 			
 
 		</div>
-
+	</>
 	</body>
 
     )

@@ -3,7 +3,23 @@ import Footer from '../../components/Footer';
 import SectionCallAction from '../../components/SectionCallAction';
 import {Link} from 'react-router-dom';
 import LogoNavBar from '../../components/LogoNavBar';
+import { useAuth } from '../../hooks/auth';
+import NavBarLoged from '../../components/NavBarLoged';
+
+interface UserObject{
+    id: number,
+    nome_completo: string,
+    nome_usuario: string,
+    email:string,
+    senha:string,
+    telefone: string,
+    created_at: Date,
+    updated_at: Date
+}
+
 const DashBoard: React.FC = ()=>{
+	const {user}:any= useAuth();
+	console.log(user)
 	useEffect(() => {
 		loadScripts();
 	});
@@ -103,25 +119,12 @@ const DashBoard: React.FC = ()=>{
 
 							<li><Link to="/noticias">Notícias</Link></li>
 									
-								
+							{user==undefined &&(
+								<li><a href="JavaScript:Void(0);" data-toggle="modal" data-target="#signup">Criar conta</a></li>
+							)}
 							</ul>
 							
-							<ul className="nav-menu nav-menu-social align-to-right drops-dashboard">
-								
-								<li>
-									<div className="btn-group account-drop">
-										<button type="button" className="btn btn-order-by-filt" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<img src="assets/img/user-5.jpg" className="avater-img" alt=""/>Bem vindo, Admin
-										</button>
-										<div className="dropdown-menu pull-right animated flipInX">
-											<Link to="/dashboard"><i className="ti-user"></i>Meu Perfil</Link>                                  
-											<Link to="/minhas-propriedades"><i className="ti-layers"></i>Minhas Propriedades</Link>                                   
-											<Link to="/locais-marcadis"><i className="ti-bookmark"></i>Locais Marcados</Link>                                   
-											<Link className="active" to="/alterar-senha"><i className="ti-unlock"></i>Alterar Senha</Link>
-										</div>
-									</div>
-								</li>
-							</ul>
+							<NavBarLoged/>
 						</div>
 					</nav>
 				</div>
@@ -153,8 +156,8 @@ const DashBoard: React.FC = ()=>{
 								
 								<div className="d-user-avater">
 									<img src="assets/img/user-3.jpg" className="img-fluid avater" alt=""/>
-									<h4>Rodrigo Alves</h4>
-									<span>Brasil</span>
+									<h4>{user.nome_completo}</h4>
+									<span>@{user.nome_usuario}</span>
 								</div>
 								
 								<div className="d-navigation">

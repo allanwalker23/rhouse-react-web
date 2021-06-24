@@ -110,6 +110,10 @@ const Home:React.FC = () =>{
 		
 							<li><Link to="#">Quem somos?</Link></li>
 
+
+
+
+
 							<li><Link to="/pesquisa">Pesquisa</Link></li>
 	
 
@@ -131,7 +135,7 @@ const Home:React.FC = () =>{
 			
 			<div className="clearfix"></div>
 			
-			<div className="image-cover hero-banner" style={{ backgroundImage: 'url(assets/img/new-banner-3.jpg)', backgroundRepeat:'no-repeat' }} data-overlay="6">
+			<div className="image-cover hero-banner" style={{ backgroundImage: 'url(assets/img/new-banner-4.jpg)', backgroundRepeat:'no-repeat' }} data-overlay="6">
 				<div className="container">
 
 					<h1 className="big-header-capt mb-0">Encontre seu espaço ideal</h1>

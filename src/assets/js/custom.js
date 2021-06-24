@@ -384,25 +384,25 @@ $(function() {
 	// Select Bedrooms
 	$('#bedrooms').select2({
 		placeholder: "Quantidade de banheiros",
-		allowClear: true
+		allowClear: false
 	});
 	
 	// Select Bathrooms
 	$('#bathrooms').select2({
 		placeholder: "Quantidade de quartos",
-		allowClear: true
+		allowClear: false
 	});
 	
 	// Select Property Types
 	$('#ptypes').select2({
 		placeholder: "Tipos De Locais",
-		allowClear: true
+		allowClear: false
 	});
 	
 	// Select Country
 	$('#country').select2({
 		placeholder: "País",
-		allowClear: true
+		allowClear: false
 	});
 	
 	// Select Town

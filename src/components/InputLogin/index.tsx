@@ -39,7 +39,7 @@ const InputLogin:React.FC<InputProps>=({name,classInput,nameInput,icon,...rest})
 	    			<div className={classInput}>
     				
                     <Input ref={inputRef} isErrored={!!error} isFocused={isFocused} isFilled={isFilled}
-                     data-toggle="tooltip" data-placement="top" title={error}
+                      data-toggle="tooltip" data-placement="top" title={error}
                       type="text" className="form-control" placeholder={nameInput}
                       onFocus={handleInputFocus}
                       onBlur={handleInputBlur}

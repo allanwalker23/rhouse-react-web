@@ -4,6 +4,7 @@ import CadastroComponent from '../../components/CadastroComponent';
 import Footer from '../../components/Footer';
 import LoginComponent from '../../components/LoginComponent';
 import LogoNavBar from '../../components/LogoNavBar';
+import NavBarLoged from '../../components/NavBarLoged';
 import SectionCallAction from '../../components/SectionCallAction';
 import { useAuth } from '../../hooks/auth';
 
@@ -118,16 +119,7 @@ const Payment:React.FC = ()=>{
 							
 							</ul>
 							
-							<ul className="nav-menu nav-menu-social align-to-right">
-								
-								<li>
-									<a href="#" data-toggle="modal" data-target="#login">
-										<i className="fas fa-user-circle mr-1"></i>Login</a>
-								</li>
-								<li className="add-listing theme-bg">
-									<a href="/criar-propriedade">Adicionar Local</a>
-								</li>
-							</ul>
+						<NavBarLoged/>
 						</div>
 					</nav>
 				</div>

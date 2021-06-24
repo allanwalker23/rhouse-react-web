@@ -33,6 +33,11 @@ const LoginComponent: React.FC = ()=>{
 			await schema.validate(data,{
 				abortEarly:false,
 			})
+
+			await signIn({
+				email:data.email,
+				senha:data.senha
+			})
 		
 			addToast({
 				title:"Logando..."
@@ -40,7 +45,7 @@ const LoginComponent: React.FC = ()=>{
 			
 
 			setTimeout(()=>{
-				window.location.href="http://dev.nspace.com.br/dashboard";
+				window.location.href="http://localhost:3000/dashboard";
 			  },3000)
 
 	

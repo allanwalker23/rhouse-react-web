@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import CadastroComponent from '../../components/CadastroComponent';
 import Footer from '../../components/Footer';
@@ -7,12 +9,107 @@ import NavBarLoged from '../../components/NavBarLoged';
 import SectionCallAction from '../../components/SectionCallAction';
 import { useAuth } from '../../hooks/auth';
 import { tiposLocais } from '../../utils/contents';
-
+import * as Yup from 'yup';
+import getValidationError from '../../utils/getValidationErrors';
+import SelectPropriedade from '../../components/InputsCadastroPropriedade/SelectCadastro';
+import { useToast } from '../../hooks/toast';
+import InputPropriedade from '../../components/InputsCadastroPropriedade/InputPropriedade';
+import TextAreaPropriedade from '../../components/InputsCadastroPropriedade/TextAreaPropriedade';
 const SubmitProperty:React.FC = () =>{
+	const formRef=useRef<FormHandles>(null);
+	const {addToast}=useToast();
 	const {user}:any= useAuth()
-	useEffect(() => {
-		loadScripts();
-	});
+	
+	
+
+	const handleSubmit=useCallback(async(data)=>{
+		console.log(data)
+		const prench_obr="Preenchimento obrigátorio!"
+		try{
+			
+			formRef.current?.setErrors({})
+	
+			const schema=Yup.object().shape({
+				titulo:Yup.string()
+				.required(prench_obr),
+				status:Yup.number()
+				.required(prench_obr),
+				tipo_propriedade:Yup.number()
+				.required(prench_obr),
+				limite_pessoa:Yup.number()
+				.typeError(prench_obr)
+				.max(50000, 'Limite máximo 50.000 pessoas'),
+				qtd_quartos:Yup.number()
+				.required(prench_obr),
+				preco:Yup.number()
+				.typeError(prench_obr)
+				.min(0, 'Valor mínimo de 0')
+				.max(700000, 'Valor máximo R$70.000.00'),
+				area:Yup.number()
+				.typeError(prench_obr)
+				.min(0, 'Área mínima 1.000m²')
+				.max(700000, 'Área máxima de 100.000m²'),
+				qtd_banheiros:Yup.number()
+				.required(prench_obr),
+				endereco:Yup.string()
+				.required(prench_obr),
+				cidade:Yup.string()
+				.required(prench_obr),
+				estado:Yup.string()
+				.required(prench_obr),
+				cep:Yup.string()
+				.required(prench_obr),
+				anos_construcao:Yup.number()
+				.required(prench_obr),
+				descricao_completa:Yup.string()
+				.required(prench_obr),
+				qtd_garagem:Yup.string()
+				.required(prench_obr),
+				qtd_sala:Yup.number()
+				.required(prench_obr),
+				nome_contato:Yup.string()
+				.required(prench_obr),
+				email_contato:Yup.string()
+				.required(prench_obr),
+				telefone_contato:Yup.string()
+				
+				
+				
+			});
+	
+			await schema.validate(data,{
+				abortEarly:false,
+			})
+
+
+			  addToast({
+				type:'success',
+				title:'Propriedade adicionada com sucesso',
+				description:'Carregando propriedade...'
+			  })
+			  
+	
+		}catch(err){
+			
+			if(err instanceof Yup.ValidationError){
+				const errors = getValidationError(err)
+				console.log(errors)
+				formRef.current?.setErrors(errors)
+			  }
+
+			  addToast({
+				type:'error',
+				title:'Erro no cadastro do local',
+				description:'Cheque se todos os dados foram preenchidos corretamente'
+			  });
+
+			  $("html, body").animate({ scrollTop: 0 }, "slow");
+			
+
+	
+		}
+			
+		},[])
 
 	function loadScripts(){
 	
@@ -151,80 +248,83 @@ const SubmitProperty:React.FC = () =>{
 						</div>
 						
 						<div className="col-lg-12 col-md-12">
-						
+						<Form ref={formRef} onSubmit={handleSubmit}>
 							<div className="submit-page">
-								
+							
 								<div className="form-submit">	
 									<h3>Informações básicas</h3>
 									<div className="submit-section">
+										
 										<div className="form-row">
 										
 											<div className="form-group col-md-12">
 												<label>Título da Propriedade<a href="#" className="tip-topdata" data-tip="Property Title"><i className="ti-help"></i></a></label>
-												<input type="text" className="form-control"/>
+												<InputPropriedade name="titulo" className="form-control"/>
 											</div>
 											
 											<div className="form-group col-md-6">
 												<label>Status</label>
-												<select id="status" className="form-control">
+												<SelectPropriedade id="status" name="status" className="form-control">
 													<option value="">&nbsp;</option>
 													<option value="1">Para Alugar</option>
-												</select>
+												</SelectPropriedade>
 											</div>
 											
 											<div className="form-group col-md-6">
 												<label>Tipo da Propriedade</label>
-												<select id="ptypes" className="form-control">
+												<SelectPropriedade id="ptypes" name="tipo_propriedade" className="form-control">
 													<option value="">&nbsp;</option>
 													{tiposLocais.map((local)=>(
 														<option value={local.id}>{local.nome}</option>	
 													))}
-												</select>
+												</SelectPropriedade>
 											</div>
 											
 											<div className="form-group col-md-4">
 												<label>Preço</label>
-												<input type="text" className="form-control" placeholder="R$"/>
+												<InputPropriedade type="text" name="preco" className="form-control" placeholder="R$"/>
 											</div>
 											
 											<div className="form-group col-md-4">
 												<label>Espaço</label>
-												<input type="text" placeholder="Em m2" className="form-control"/>
+												<InputPropriedade type="text" name="area" placeholder="Em m2" className="form-control"/>
 											</div>
 
 
 											<div className="form-group col-md-4">
 												<label>Limite de pessoas</label>
-												<input type="text" className="form-control" placeholder="Digite número máximo de pessoas"/>
+												<InputPropriedade type="text" name="limite_pessoa" className="form-control" placeholder="Digite número máximo de pessoas"/>
 											</div>
 											
 											
 											<div className="form-group col-md-6">
 												<label>Quartos</label>
-												<select id="bedrooms" className="form-control">
+												<SelectPropriedade name="qtd_quartos" id="bedrooms" className="form-control">
 													<option value="">&nbsp;</option>
 													<option value="1">1</option>
 													<option value="2">2</option>
 													<option value="3">3</option>
 													<option value="4">4</option>
 													<option value="5">5</option>
-												</select>
+												</SelectPropriedade>
 											</div>
 											
 											<div className="form-group col-md-6">
 												<label>Banheiros</label>
-												<select id="bathrooms" className="form-control">
+												<SelectPropriedade id="bathrooms" name="qtd_banheiros" className="form-control">
 													<option value="">&nbsp;</option>
 													<option value="1">1</option>
 													<option value="2">2</option>
 													<option value="3">3</option>
 													<option value="4">4</option>
 													<option value="5">5</option>
-												</select>
+												</SelectPropriedade>
 											</div>
 											
 										</div>
+										
 									</div>
+									
 								</div>
 								
 								<div className="form-submit">	
@@ -253,22 +353,22 @@ const SubmitProperty:React.FC = () =>{
 										
 											<div className="form-group col-md-6">
 												<label>Endereço</label>
-												<input type="text" className="form-control"/>
+												<InputPropriedade type="text" name="endereco" className="form-control"/>
 											</div>
 											
 											<div className="form-group col-md-6">
 												<label>Cidade</label>
-												<input type="text" className="form-control"/>
+												<InputPropriedade type="text" name="cidade" className="form-control"/>
 											</div>
 											
 											<div className="form-group col-md-6">
 												<label>Estado</label>
-												<input type="text" className="form-control"/>
+												<InputPropriedade type="text" name="estado" className="form-control"/>
 											</div>
 											
 											<div className="form-group col-md-6">
 												<label>CEP</label>
-												<input type="text" className="form-control"/>
+												<InputPropriedade type="text" name="cep" className="form-control"/>
 											</div>
 											
 										</div>
@@ -282,47 +382,47 @@ const SubmitProperty:React.FC = () =>{
 										
 											<div className="form-group col-md-12">
 												<label>Descrição</label>
-												<textarea className="form-control h-120"></textarea>
+												<TextAreaPropriedade name="descricao_completa" className="form-control h-120"></TextAreaPropriedade>
 											</div>
 											
 											<div className="form-group col-md-4">
 												<label>Contruído em (opcional)</label>
-												<select id="bage" className="form-control">
+												<SelectPropriedade id="bage"  name="anos_construcao" className="form-control">
 													<option value="">&nbsp;</option>
 													<option value="1">0 - 5 Anos</option>
 													<option value="2">0 - 10Anos</option>
 													<option value="3">0 - 15 Anos</option>
 													<option value="4">0 - 20 Anos</option>
 													<option value="5">20+ Anos</option>
-												</select>
+												</SelectPropriedade>
 											</div>
 											
 											<div className="form-group col-md-4">
 												<label>Garagem (opcional)</label>
-												<select id="garage" className="form-control">
+												<SelectPropriedade id="garage" name="qtd_garagem" className="form-control">
 													<option value="">&nbsp;</option>
 													<option value="1">1</option>
 													<option value="2">2</option>
 													<option value="3">3</option>
 													<option value="4">4</option>
 													<option value="5">5</option>
-												</select>
+												</SelectPropriedade>
 											</div>
 											
 											<div className="form-group col-md-4">
 												<label>Salas (opcional)</label>
-												<select id="rooms" className="form-control">
+												<SelectPropriedade id="rooms" name="qtd_sala" className="form-control">
 													<option value="">&nbsp;</option>
 													<option value="1">1</option>
 													<option value="2">2</option>
 													<option value="3">3</option>
 													<option value="4">4</option>
 													<option value="5">5</option>
-												</select>
+												</SelectPropriedade>
 											</div>
 											
 											<div className="form-group col-md-12">
-												<label>Outros benefícios (optional)</label>
+												<label>Outros benefícios (opcional)</label>
 												<div className="o-features">
 													<ul className="no-ul-list third-row">
 														<li>
@@ -389,17 +489,17 @@ const SubmitProperty:React.FC = () =>{
 										
 											<div className="form-group col-md-4">
 												<label>Nome</label>
-												<input type="text" className="form-control"/>
+												<InputPropriedade name="nome_contato" type="text" className="form-control"/>
 											</div>
 											
 											<div className="form-group col-md-4">
 												<label>Email</label>
-												<input type="text" className="form-control"/>
+												<InputPropriedade name="email_contato" type="text" className="form-control"/>
 											</div>
 											
 											<div className="form-group col-md-4">
 												<label>Telefone (opcional)</label>
-												<input type="text" className="form-control"/>
+												<InputPropriedade name="telefone_contato" type="text" className="form-control"/>
 											</div>
 											
 										</div>
@@ -417,10 +517,11 @@ const SubmitProperty:React.FC = () =>{
 								</div>
 								
 								<div className="form-group col-lg-12 col-md-12">
-									<button className="btn btn-theme" type="submit">Enviar & Visualizar</button>
+									<button className="btn btn-theme top-scroll" type="submit">Enviar & Visualizar</button>
 								</div>
 											
 							</div>
+							</Form>
 						</div>
 						
 					</div>

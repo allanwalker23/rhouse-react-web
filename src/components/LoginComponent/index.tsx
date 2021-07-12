@@ -34,10 +34,6 @@ const LoginComponent: React.FC = ()=>{
 				abortEarly:false,
 			})
 
-			await signIn({
-				email:data.email,
-				senha:data.senha
-			})
 		
 			addToast({
 				title:"Logando..."
@@ -45,7 +41,7 @@ const LoginComponent: React.FC = ()=>{
 			
 
 			setTimeout(()=>{
-				window.location.href="http://localhost:3000/dashboard";
+				window.location.href="http://dev.nspace.com.br/dashboard";
 			  },3000)
 
 	
@@ -99,7 +95,7 @@ const LoginComponent: React.FC = ()=>{
 					<div className="social-login mb-3">
 						<ul>
 							<li><a href="#" className="btn connect-fb"><i className="ti-facebook"></i>Facebook</a></li>
-							<li><a href="#" className="btn connect-twitter"><i className="ti-twitter"></i>Twitter</a></li>
+							<li><a href="#" className="btn connect-twitter" style={{backgroundColor:'red'}}><i className="ti-google"></i>Google</a></li>
 						</ul>
 					</div>
 					<div className="text-center">

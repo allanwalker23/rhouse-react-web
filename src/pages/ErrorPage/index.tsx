@@ -10,6 +10,7 @@ import { useAuth } from '../../hooks/auth';
 
 const ErrorPage = () =>{
 	const {user}= useAuth()
+	
     return(
 		<body className="default-skin">      
         <div id="preloader"><div className="preloader"><span></span><span></span></div></div>

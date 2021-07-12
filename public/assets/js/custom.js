@@ -410,6 +410,11 @@ $(function() {
 		placeholder: "Cidade",
 		allowClear: true
 	});
+
+	$('#check-in').select2({
+		placeholder: "Check-in",
+		allowClear: false
+	});
 	
 	// Select Town
 	$('#location').select2({

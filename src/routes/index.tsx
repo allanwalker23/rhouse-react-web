@@ -25,7 +25,7 @@ const Routes:React.FC = () =>(
         <Route path="/noticias" component={News} />
         <Route path="/pagamentos" component={Payment} />
         <Route path="/alterar-senha" component={ChangePassword} />
-        <Route path="*" component={ErrorPage} />
+        
         
     </Switch>
 

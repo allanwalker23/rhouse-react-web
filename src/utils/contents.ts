@@ -68,7 +68,7 @@ export const locais=[
     },
 
     {
-        id:1,
+        id:2,
         nome:"Lindo local para Casamento",
         foto1:"assets/img/p-4.jpg",
         foto2:"assets/img/p-5.jpg",

@@ -11,7 +11,7 @@ const NavBarLoged:React.FC = () =>{
             
             <li>
                 <div className="btn-group account-drop">
-                    <button type="button" className="btn btn-order-by-filt" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" className="btn btn-order-by-filt" style={{color:"white"}} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="assets/img/user-5.jpg" className="avater-img" alt=""/>Bem vindo, {user.nome_completo}
                     </button>
                     <div className="dropdown-menu pull-right animated flipInX">
@@ -27,16 +27,20 @@ const NavBarLoged:React.FC = () =>{
 
         
         ):(
-            <ul className="nav-menu nav-menu-social align-to-right">
-            
-            <li>
-                <a href="#" data-toggle="modal" data-target="#login">
-                    <i className="fas fa-user-circle mr-1"></i>Login</a>
-            </li>
-            <li className="add-listing theme-bg">
-                <a href="/criar-propriedade">Adicionar um local</a>
-            </li>
-            </ul>
+           
+							<ul className="nav-menu nav-menu-social align-to-right">
+                            <li className="add-listing theme-bg">
+                                <a href="/criar-propriedade">Adicionar um local</a>
+                            </li>	
+                            
+                                <li><a href="JavaScript:Void(0);" data-toggle="modal" data-target="#signup">Criar conta</a></li>
+                            
+                            <li>
+                                <a href="#" data-toggle="modal" data-target="#login">
+                                    <i className="fas fa-user-circle mr-1"></i>Login</a>
+                            </li>
+                            
+                        </ul>	
         )}
         </>
 

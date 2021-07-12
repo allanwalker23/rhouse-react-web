@@ -32,8 +32,13 @@ const CadastroComponent :React.FC = () =>{
 				nome_usuario:Yup.string()
 				.required('Preenchimento obrigátorio'),
 				senha:Yup.string().required("Senha obrigatória"),
+				confirmacao_senha:Yup.string().required("Confirmação obrigatória"),
 				telefone: Yup.string().matches(phoneRegExp, 'Telefone não válido')
 			});
+
+			if(data.senha!=data.confirmacao_senha){
+				throw new Error('As senhas não conhecidem')
+			}
 	
 			await schema.validate(data,{
 				abortEarly:false,
@@ -88,15 +93,22 @@ const CadastroComponent :React.FC = () =>{
 
 										<InputCadastro icon="ti-user" name="nome_usuario" 
 										placeholder="Nome de usuário" type="text" typeInput="text" />
-										
+						
+										<InputCadastro icon="lni-phone-handset" name="telefone" 
+										placeholder="Telefone" type="text" typeInput="text" />
+				
 										<InputCadastro icon="ti-unlock" name="senha" 
 										placeholder="Senha" type="password" typeInput="text" />
 
-										<InputCadastro icon="lni-phone-handset" name="telefone" 
-										placeholder="Telefone" type="text" typeInput="text" />
+										<InputCadastro icon="ti-unlock" name="confirmacao_senha" 
+										placeholder="Confirmar senha" type="password" typeInput="text" />
 
-										<InputCadastro icon="ti-briefcase" name="tipo_conta" 
-										placeholder="Tipo de Conta" type="text" typeInput="option" />
+										<InputCadastro icon="ti-unlock" name="cidade" 
+										placeholder="Cidade" type="password" typeInput="text" />
+
+										<InputCadastro icon="ti-city" name="tipo_conta" 	
+										placeholder="Tipo Conta" type="text" typeInput="option" />
+										
 										
 									</div>
 									
@@ -110,7 +122,7 @@ const CadastroComponent :React.FC = () =>{
 							<div className="social-login mb-3">
 								<ul>
 									<li><a href="#" className="btn connect-fb"><i className="ti-facebook"></i>Facebook</a></li>
-									<li><a href="#" className="btn connect-twitter"><i className="ti-twitter"></i>Twitter</a></li>
+									<li><a href="#" className="btn connect-twitter" style={{backgroundColor:'red'}}><i className="ti-google"></i>Google</a></li>
 								</ul>
 							</div>
 							<div className="text-center">

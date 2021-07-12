@@ -15,12 +15,20 @@ import SelectPropriedade from '../../components/InputsCadastroPropriedade/Select
 import { useToast } from '../../hooks/toast';
 import InputPropriedade from '../../components/InputsCadastroPropriedade/InputPropriedade';
 import TextAreaPropriedade from '../../components/InputsCadastroPropriedade/TextAreaPropriedade';
+import { loadScripts } from '../Home';
+
 const SubmitProperty:React.FC = () =>{
 	const formRef=useRef<FormHandles>(null);
 	const {addToast}=useToast();
 	const {user}:any= useAuth()
 	
 	
+	useEffect(()=>{
+	
+		loadScripts();
+	
+		
+	},[])
 
 	const handleSubmit=useCallback(async(data)=>{
 		console.log(data)
@@ -62,7 +70,8 @@ const SubmitProperty:React.FC = () =>{
 				anos_construcao:Yup.number()
 				.required(prench_obr),
 				descricao_completa:Yup.string()
-				.required(prench_obr),
+				.required(prench_obr)
+				.max(301,'Limite máximo de 301 caracteres'),
 				qtd_garagem:Yup.string()
 				.required(prench_obr),
 				qtd_sala:Yup.number()
@@ -111,75 +120,7 @@ const SubmitProperty:React.FC = () =>{
 			
 		},[])
 
-	function loadScripts(){
 	
-		const script = document.createElement("script");
-		script.src = "assets/js/jquery.min.js";
-		script.async = true;
-
-		const script2 = document.createElement("script");
-		script2.src = "assets/js/jquery.min.js";
-		script2.async = true;
-
-		const script3 = document.createElement("script");
-		script3.src = "assets/js/popper.min.js";
-		script3.async = true;
-
-		const script4 = document.createElement("script");
-		script4.src="assets/js/bootstrap.min.js";
-		script4.async = true;
-
-		const script5 = document.createElement("script");
-		script5.src="assets/js/rangeslider.js";
-		script5.async = true;
-
-		const script6 = document.createElement("script");
-		script6.src="assets/js/select2.min.js";
-		script6.async = true;
-
-		const script7 = document.createElement("script");
-		script7.src="assets/js/jquery.magnific-popup.min.js";
-		script7.async = true;
-		
-		const script8 = document.createElement("script");
-		script8.src="assets/js/slick.js";
-		script8.async = true;
-
-		const script9 = document.createElement("script");
-		script9.src="assets/js/slider-bg.js";
-		script9.async = true;
-		
-		const script10 = document.createElement("script");
-		script10.src="assets/js/lightbox.js";
-		script10.async = true;
-		
-		const script11 = document.createElement("script");
-		script11.src="assets/js/imagesloaded.js";
-		script11.async = true;
-
-		const script12 = document.createElement("script");
-		script12.src="assets/js/custom.js";
-		script12.async = true;
-
-		const script13 = document.createElement("script");
-		script13.src="assets/js/cl-switch.js";
-		script13.async = true;
-		
-
-		document.body.appendChild(script);
-		document.body.appendChild(script2);
-		document.body.appendChild(script3);
-		document.body.appendChild(script4);
-		document.body.appendChild(script5);
-		document.body.appendChild(script6);
-		document.body.appendChild(script7);
-		document.body.appendChild(script8);
-		document.body.appendChild(script9);
-		document.body.appendChild(script10);
-		document.body.appendChild(script11);
-		document.body.appendChild(script12);
-		document.body.appendChild(script13);
-	}
 
     return(
 		<body className="default-skin">
@@ -252,26 +193,19 @@ const SubmitProperty:React.FC = () =>{
 							<div className="submit-page">
 							
 								<div className="form-submit">	
-									<h3>Informações básicas</h3>
+									<h3>Informações do Espaço</h3>
 									<div className="submit-section">
 										
 										<div className="form-row">
 										
 											<div className="form-group col-md-12">
-												<label>Título da Propriedade<a href="#" className="tip-topdata" data-tip="Property Title"><i className="ti-help"></i></a></label>
+												<label>Título da propriedade<a href="#" className="tip-topdata" data-tip="Dê um título chamativo para sua propriedade"><i className="ti-help"></i></a></label>
 												<InputPropriedade name="titulo" className="form-control"/>
 											</div>
 											
+										
 											<div className="form-group col-md-6">
-												<label>Status</label>
-												<SelectPropriedade id="status" name="status" className="form-control">
-													<option value="">&nbsp;</option>
-													<option value="1">Para Alugar</option>
-												</SelectPropriedade>
-											</div>
-											
-											<div className="form-group col-md-6">
-												<label>Tipo da Propriedade</label>
+												<label>Tipo do local</label>
 												<SelectPropriedade id="ptypes" name="tipo_propriedade" className="form-control">
 													<option value="">&nbsp;</option>
 													{tiposLocais.map((local)=>(
@@ -280,20 +214,36 @@ const SubmitProperty:React.FC = () =>{
 												</SelectPropriedade>
 											</div>
 											
-											<div className="form-group col-md-4">
+											<div className="form-group col-md-3">
 												<label>Preço</label>
 												<InputPropriedade type="text" name="preco" className="form-control" placeholder="R$"/>
+											</div>
+
+											<div className="form-group col-md-3">
+												<label>Tipo de cobrança</label>
+												<SelectPropriedade id="ptypes" name="tipo_propriedade" className="form-control">
+													<option value="">&nbsp;</option>
+													<option value="1">Hora</option>
+													<option value="2">Dia</option>
+													<option value="3">Quinzena</option>
+													<option value="4">Mês</option>
+												</SelectPropriedade>
 											</div>
 											
 											<div className="form-group col-md-4">
 												<label>Espaço</label>
-												<InputPropriedade type="text" name="area" placeholder="Em m2" className="form-control"/>
+												<InputPropriedade type="text" name="area" placeholder="Em m²" className="form-control"/>
 											</div>
 
 
 											<div className="form-group col-md-4">
 												<label>Limite de pessoas</label>
 												<InputPropriedade type="text" name="limite_pessoa" className="form-control" placeholder="Digite número máximo de pessoas"/>
+											</div>
+
+											<div className="form-group col-md-4">
+											<label>Código Promocional<a href="#" className="tip-topdata" data-tip="Você pode oferecer descontos aos sues compradores, saiba mais"><i className="ti-help"></i></a></label>
+												<InputPropriedade type="text" name="codigo_promocional" className="form-control" placeholder="Informe o código promocional"/>
 											</div>
 											
 											
@@ -328,12 +278,56 @@ const SubmitProperty:React.FC = () =>{
 								</div>
 								
 								<div className="form-submit">	
-									<h3>Galeria</h3>
+									<h3>Galeria(Desenvolvimento)</h3>
 									<div className="submit-section">
 										<div className="form-row">
+										<button className="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#fotosLocal" aria-expanded="false" aria-controls="extraSer">
+										 Envie as fotos do local
+										</button>
 										
-											<div className="form-group col-md-12">
-												<label>Envie as fotos do local</label>
+											<div id="fotosLocal" className="form-group col-md-12 collapse" aria-labelledby="Fotos" data-parent="#accordionExample">
+												
+												<form action="https://themezhub.net/upload-target" className="dropzone dz-clickable primary-dropzone">
+													<div className="dz-default dz-message">
+														<i className="ti-gallery"></i>
+														<span>Arraste & Solte Para Adicionar Imagem</span>
+													</div>
+												</form>
+											</div>
+
+											<button className="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#fotosComprovante" aria-expanded="false" aria-controls="extraSer">
+										 		Envie as fotos do comprovante de residência
+											</button>
+										
+											<div id="fotosComprovante" className="form-group col-md-12 collapse" aria-labelledby="Comprovante" data-parent="#accordionExample">
+											
+												<form action="https://themezhub.net/upload-target" className="dropzone dz-clickable primary-dropzone">
+													<div className="dz-default dz-message">
+														<i className="ti-gallery"></i>
+														<span>Arraste & Solte Para Adicionar Imagem</span>
+													</div>
+												</form>
+											</div>
+
+											<button className="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#fotosIdCadastrante" aria-expanded="false" aria-controls="extraSer">
+										 		Envie as fotos de identificação do cadastrante
+											</button>
+										
+											<div id="fotosIdCadastrante" className="form-group col-md-12 collapse" aria-labelledby="IdCadastrante" data-parent="#accordionExample">
+											
+												<form action="https://themezhub.net/upload-target" className="dropzone dz-clickable primary-dropzone">
+													<div className="dz-default dz-message">
+														<i className="ti-gallery"></i>
+														<span>Arraste & Solte Para Adicionar Imagem</span>
+													</div>
+												</form>
+											</div>
+
+											<button className="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#fotosIdProprietario" aria-expanded="false" aria-controls="extraSer">
+										 		Envie as fotos de identificação do propriétario
+											</button>
+										
+											<div id="fotosIdProprietario" className="form-group col-md-12 collapse" aria-labelledby="IdProprietario" data-parent="#accordionExample">
 												<form action="https://themezhub.net/upload-target" className="dropzone dz-clickable primary-dropzone">
 													<div className="dz-default dz-message">
 														<i className="ti-gallery"></i>
@@ -352,6 +346,11 @@ const SubmitProperty:React.FC = () =>{
 										<div className="form-row">
 										
 											<div className="form-group col-md-6">
+												<label>CEP</label>
+												<InputPropriedade type="text" name="cep" className="form-control"/>
+											</div>
+
+											<div className="form-group col-md-6">
 												<label>Endereço</label>
 												<InputPropriedade type="text" name="endereco" className="form-control"/>
 											</div>
@@ -365,11 +364,7 @@ const SubmitProperty:React.FC = () =>{
 												<label>Estado</label>
 												<InputPropriedade type="text" name="estado" className="form-control"/>
 											</div>
-											
-											<div className="form-group col-md-6">
-												<label>CEP</label>
-												<InputPropriedade type="text" name="cep" className="form-control"/>
-											</div>
+										
 											
 										</div>
 									</div>
@@ -381,21 +376,10 @@ const SubmitProperty:React.FC = () =>{
 										<div className="form-row">
 										
 											<div className="form-group col-md-12">
-												<label>Descrição</label>
+												<label>Descrição(Max 301 caracteres)</label>
 												<TextAreaPropriedade name="descricao_completa" className="form-control h-120"></TextAreaPropriedade>
 											</div>
 											
-											<div className="form-group col-md-4">
-												<label>Contruído em (opcional)</label>
-												<SelectPropriedade id="bage"  name="anos_construcao" className="form-control">
-													<option value="">&nbsp;</option>
-													<option value="1">0 - 5 Anos</option>
-													<option value="2">0 - 10Anos</option>
-													<option value="3">0 - 15 Anos</option>
-													<option value="4">0 - 20 Anos</option>
-													<option value="5">20+ Anos</option>
-												</SelectPropriedade>
-											</div>
 											
 											<div className="form-group col-md-4">
 												<label>Garagem (opcional)</label>
@@ -404,22 +388,10 @@ const SubmitProperty:React.FC = () =>{
 													<option value="1">1</option>
 													<option value="2">2</option>
 													<option value="3">3</option>
-													<option value="4">4</option>
-													<option value="5">5</option>
+													<option value="4">4+</option>
 												</SelectPropriedade>
 											</div>
 											
-											<div className="form-group col-md-4">
-												<label>Salas (opcional)</label>
-												<SelectPropriedade id="rooms" name="qtd_sala" className="form-control">
-													<option value="">&nbsp;</option>
-													<option value="1">1</option>
-													<option value="2">2</option>
-													<option value="3">3</option>
-													<option value="4">4</option>
-													<option value="5">5</option>
-												</SelectPropriedade>
-											</div>
 											
 											<div className="form-group col-md-12">
 												<label>Outros benefícios (opcional)</label>
@@ -435,31 +407,31 @@ const SubmitProperty:React.FC = () =>{
 														</li>
 														<li>
 															<input id="a-3" className="checkbox-custom" name="a-3" type="checkbox"/>
-															<label htmlFor="a-3" className="checkbox-custom-label">Sala De Leitura</label>
-														</li>
-														<li>
-															<input id="a-4" className="checkbox-custom" name="a-4" type="checkbox"/>
-															<label htmlFor="a-4" className="checkbox-custom-label">Internet</label>
+															<label htmlFor="a-3" className="checkbox-custom-label">Sala De Cinema</label>
 														</li>
 														<li>
 															<input id="a-5" className="checkbox-custom" name="a-5" type="checkbox"/>
-															<label htmlFor="a-5" className="checkbox-custom-label">Microondas</label>
+															<label htmlFor="a-5" className="checkbox-custom-label">Acessibilidade</label>
 														</li>
 														<li>
 															<input id="a-6" className="checkbox-custom" name="a-6" type="checkbox"/>
-															<label htmlFor="a-6" className="checkbox-custom-label">Permitido Fumar</label>
+															<label htmlFor="a-6" className="checkbox-custom-label">Churrasqueira</label>
 														</li>
 														<li>
 															<input id="a-7" className="checkbox-custom" name="a-7" type="checkbox"/>
-															<label htmlFor="a-7" className="checkbox-custom-label">Terraço</label>
+															<label htmlFor="a-7" className="checkbox-custom-label">Isolamento acústico</label>
 														</li>
 														<li>
 															<input id="a-8" className="checkbox-custom" name="a-8" type="checkbox"/>
-															<label htmlFor="a-8" className="checkbox-custom-label">Varanda</label>
+															<label htmlFor="a-8" className="checkbox-custom-label">Sistema de Som</label>
+														</li>
+														<li>
+															<input id="a-8" className="checkbox-custom" name="a-8" type="checkbox"/>
+															<label htmlFor="a-8" className="checkbox-custom-label">Sistema de Luzes</label>
 														</li>
 														<li>
 															<input id="a-9" className="checkbox-custom" name="a-9" type="checkbox"/>
-															<label htmlFor="a-9" className="checkbox-custom-label">Alarme</label>
+															<label htmlFor="a-9" className="checkbox-custom-label">Jacuzzi</label>
 														</li>
 														<li>
 															<input id="a-10" className="checkbox-custom" name="a-10" type="checkbox"/>
@@ -480,31 +452,82 @@ const SubmitProperty:React.FC = () =>{
 										</div>
 									</div>
 								</div>
-								
-								
-								<div className="form-submit">	
-									<h3>Informações de contato</h3>
-									<div className="submit-section">
-										<div className="form-row">
 										
-											<div className="form-group col-md-4">
-												<label>Nome</label>
-												<InputPropriedade name="nome_contato" type="text" className="form-control"/>
+							<div className="row">
+								<div className="col-lg-12 col-md-12 col-sm-12">
+									<div className="card-header" id="Packages">
+									  <h2 className="mb-0">
+										<button className="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#extraPackages" aria-expanded="false" aria-controls="extraSer">
+										  Dê  uma olhada nos pacotes de impulsionamento disponíveis
+										</button>
+									  </h2>
+									</div>
+									<div id="extraPackages" className="collapse" aria-labelledby="Packages" data-parent="#accordionExample">
+										<div className="row">
+											
+											
+											<div className="col-lg-4 col-md-4 c-l-sm-12">
+												<div className="package-box">
+													<span className="theme-cl">Plano Padrão(Gratuito)</span>
+													<h4 className="packages-features-title">R$0,00</h4>
+													<ul className="packages-lists-list">
+														<li>Impulsionamento padrão</li>
+													</ul>
+													<div className="buypackage">
+														<div className="switchbtn paying">
+															<input id="gold" className="switchbtn-checkbox" type="radio" value="2" checked name="package7"/>
+															<label className="switchbtn-label" htmlFor="gold"></label>
+														</div>
+														<span>Mudar de plano</span>
+													</div>
+												</div>
 											</div>
 											
-											<div className="form-group col-md-4">
-												<label>Email</label>
-												<InputPropriedade name="email_contato" type="text" className="form-control"/>
+											
+											<div className="col-lg-4 col-md-4 c-l-sm-12">
+												<div className="package-box">
+													<span className="theme-cl">Plano Avião</span>
+													<h4 className="packages-features-title">R$19,90</h4>
+													<ul className="packages-lists-list">
+														<li>Maior Visibilidade</li>
+														
+													</ul>
+													<div className="buypackage">
+														<div className="switchbtn paying">
+															<input id="premium" className="switchbtn-checkbox" type="radio" value="2" name="package7"/>
+															<label className="switchbtn-label" htmlFor="premium"></label>
+														</div>
+														<span>Mudar de plano</span>
+													</div>
+												</div>
 											</div>
 											
-											<div className="form-group col-md-4">
-												<label>Telefone (opcional)</label>
-												<InputPropriedade name="telefone_contato" type="text" className="form-control"/>
-											</div>
 											
+											<div className="col-lg-4 col-md-4 c-l-sm-12">
+												<div className="package-box">
+													<span className="theme-cl">Plano Foguete</span>
+													<h4 className="packages-features-title">R$40,00</h4>
+													<ul className="packages-lists-list">
+														<li>Seja visto por milhares de pessoas!</li>
+														
+													</ul>
+													<div className="buypackage">
+														<div className="switchbtn paying">
+															<input id="standard" className="switchbtn-checkbox" type="radio" value="2" name="package7"/>
+															<label className="switchbtn-label" htmlFor="standard"></label>
+														</div>
+														<span>Mudar de plano</span>
+													</div>
+												</div>
+											</div>
+										
 										</div>
+										
+										
 									</div>
 								</div>
+							</div>
+					
 								
 								<div className="form-group col-lg-12 col-md-12">
 									<label>Termos de uso *</label>
@@ -526,8 +549,12 @@ const SubmitProperty:React.FC = () =>{
 						
 					</div>
 				</div>
+
+				
 						
 			</section>
+
+			
 			
 			<SectionCallAction/>
 		<Footer/>

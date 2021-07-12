@@ -416,6 +416,11 @@ $(function() {
 		placeholder: "Sua Cidade",
 		allowClear: true
 	});
+
+	$('#check-in').select2({
+		placeholder: "Check-in",
+		allowClear: true
+	});
 	
 	// Select Cities
 	$('#cities').select2({

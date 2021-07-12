@@ -9,8 +9,8 @@ interface LogoNavBarProps{
         <>
         {type=="home" &&(
             <>
-            <a className="nav-brand static-logo" href="#"><img src="assets/img/NSPACE-2.png" className="logo" alt="" /></a>
-            <a className="nav-brand fixed-logo" href="#"><img src="assets/img/NSPACE-01.png" className="logo" alt="" /></a>
+            <a className="nav-brand static-logo" href="#"><img src="assets/img/nspace-laranja.png" className="logo" alt="" /></a>
+            <a className="nav-brand fixed-logo" href="#"><img src="assets/img/nspace-laranja.png" className="logo" alt="" /></a>
             </>
         )}
 

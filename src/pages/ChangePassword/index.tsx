@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import CadastroComponent from '../../components/CadastroComponent';
 import Footer from '../../components/Footer';
 import LoginComponent from '../../components/LoginComponent';
@@ -10,16 +10,31 @@ import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 import { loadScripts } from '../Home';
 
+
+
+
 const ChangePassword:React.FC = () =>{
-	//const {user}:any=useAuth()
+	const {user}:any=useAuth()
+	const history=useHistory();
 	useEffect(() => {
+		//Verificação De Usuário Logado
+		new Promise((resolve, reject) => {
+			setTimeout(()=>{
+			resolve('')
+			},300)
+		
+		   }).then(()=>{
+			   if(user==undefined){
+				   history.push({pathname:'/error'})
+			   }
+		   })
 		loadScripts();
 	});
 
-
+	
 
     return(
-    <body className="default-skin">
+    <body className="default-skin" style={{backgroundColor:'#f0f8fe'}}>
     
         
 		
@@ -59,7 +74,7 @@ const ChangePassword:React.FC = () =>{
 						<div className="col-lg-12 col-md-12">
 							
 						<h2 className="ipt-title">Bem vindo!</h2>
-							<span className="ipn-subtitle">Bem vindo a sua conta</span>
+						<span style={{fontFamily:'Montserrat', fontSize:20}}>Bem Vindo a sua conta</span>
 							
 						</div>
 					</div>
@@ -75,19 +90,60 @@ const ChangePassword:React.FC = () =>{
 								
 								<div className="d-user-avater">
 									<img src="assets/img/user-3.jpg" className="img-fluid avater" alt=""/>
-									<h4>User</h4>
-									<span>user@gmail</span>
+									{user!=undefined ?(
+										<>
+									<h4>{user.nome_completo}</h4>
+									{user.tipo_usuario==0 ?(
+										<span>Cliente</span>
+									):(
+										<span>Locátario</span>
+									)}
+									
+										</>
+									):(
+										<>
+									<h4></h4>
+									<span></span>
+										</>
+									)}
+									
 								</div>
 								
 								<div className="d-navigation">
 								<ul>
-										<li><Link to="/dashboard"><i className="ti-user"></i>Meu Perfil</Link></li>
-										<li><Link to="/minhas-propriedades"><i className="ti-layers"></i>Minhas propriedades</Link></li>                                   
-										<li><Link to="/locais-marcados"><i className="ti-bookmark"></i>Locais Marcados</Link></li>        
-										<li><Link to="/criar-propriedade"><i className="ti-pencil-alt"></i>Adicionar propriedade</Link></li>
-										<li className="active"><Link className="active" to="/alterar-senha"><i className="ti-unlock"></i>Alterar Senha</Link></li>
-										<li><a href="#"><i className="ti-power-off"></i>Sair</a></li>
-									</ul>
+								{user!=undefined?(
+         user.tipo_usuario==1 ?(
+             <>
+            <li ><Link to="/dashboard"><i className="ti-user"></i>Meu Perfil</Link></li>
+            <li><Link to="/minhas-propriedades"><i className="ti-layers"></i>Minhas propriedades</Link></li> 
+            <li><Link to="/locais-marcados"><i className="ti-bookmark"></i>Gerenciar Reservas</Link></li>        
+            <li><Link to="/criar-propriedade"><i className="ti-pencil-alt"></i>Adicionar propriedade</Link></li>
+            <li className="active"><Link className="active" to="/alterar-senha"><i className="ti-unlock"></i>Alterar Senha</Link></li>
+            <li><a href="#"><i className="ti-power-off"></i>Sair</a></li>
+
+            <button className="btn btn-theme" type="submit" style={{maxWidth:'325 px', width:'260px'}}>Seja um cliente</button>	
+            
+            </>
+        ):(
+            <>
+            
+            <li><Link to="/dashboard"><i className="ti-user"></i>Meu Perfil</Link></li>
+            
+            <li><Link to="/locais-marcados"><i className="ti-bookmark"></i>Locais Marcados</Link></li>        
+            <li><Link to="/minhas-reservas"><i className="ti-agenda"></i>Minhas Reservas</Link></li>
+            <li className="active"><Link className="active" to="/alterar-senha"><i className="ti-unlock"></i>Alterar Senha</Link></li>
+            <li><a href="#"><i className="ti-power-off"></i>Sair</a></li>
+
+            <button className="btn btn-theme" type="submit" style={{maxWidth:'325 px', width:'260px'}}>Seja um locátario</button>	     
+            </>
+        )
+
+        
+        ):(
+           <p>Usuario não logado</p>
+				                			
+        )}
+								</ul>
 								</div>
 								
 							</div>

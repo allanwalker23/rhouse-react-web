@@ -380,17 +380,16 @@ $(function() {
         $(this).children(".current-min").val(currentMin);
         $(this).children(".current-max").val(currentMax);
     });
-	
-	// Select Bedrooms
+
 	$('#bedrooms').select2({
-		placeholder: "Quantidade de banheiros",
-		allowClear: true
+		placeholder: "Quantidade de quartos",
+		allowClear: false
 	});
 	
 	// Select Bathrooms
 	$('#bathrooms').select2({
-		placeholder: "Quantidade de quartos",
-		allowClear: true
+		placeholder: "Quantidade de banheiros",
+		allowClear: false
 	});
 	
 	// Select Property Types
@@ -412,7 +411,7 @@ $(function() {
 	});
 
 	$('#check-in').select2({
-		placeholder: "Check-in",
+		placeholder: "Check-in - Check-out",
 		allowClear: false
 	});
 	

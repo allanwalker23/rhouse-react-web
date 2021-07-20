@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Footer from '../../components/Footer';
 import SectionCallAction from '../../components/SectionCallAction';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import LogoNavBar from '../../components/LogoNavBar';
 import { useAuth } from '../../hooks/auth';
 import NavBarLoged from '../../components/NavBarLoged';
 import { loadScripts } from '../Home';
+import api from '../../services/api';
+import { useToast } from '../../hooks/toast';
 
 interface UserObject{
     id: number,
@@ -19,15 +21,53 @@ interface UserObject{
 }
 
 const DashBoard: React.FC = ()=>{
-	//const {user}:any= useAuth();
+	const {user,refreshUser}:any= useAuth();
+	const{addToast}=useToast();
+	const token =localStorage.getItem('@NSpace:token');
+
+	
+	const history=useHistory();
+
+	const becomeLocatario = useCallback(async ()=>{
+		const id_user= user.id;
+		await api.post('/usuarios/becomeLocatario/'+id_user)
+		addToast({
+			type:'info',
+			title:'Pedido de alteração de conta enviado',
+			description:'Assim que sua conta for verificada, você poderá ser um locátario'
+		  })
+		  
+		  setTimeout(()=>{
+			window.location.href="https://dev.nspace.com.br/dashboard";
+		  },3000)
+
+	},[])
 	
 	useEffect(() => {
+		if(user!=undefined){
+			refreshUser({
+				id:user.id,
+				token_received:token
+			})
+		}
+		
+	//Verificação De Usuário Logado
+	//new Promise((resolve, reject) => {
+	//	setTimeout(()=>{
+	//	resolve('')
+	//	},300)
+	
+	  // }).then(()=>{
+		 //  if(user==undefined){
+			  // history.push({pathname:'/error'})
+		   //}
+	   //})
 		loadScripts();
 	});
 
 
     return(
-		<body className="default-skin">
+		<body className="default-skin" style={{backgroundColor:'#f0f8fe'}}>
 		
         <div id="main-wrapper">
 		
@@ -67,7 +107,7 @@ const DashBoard: React.FC = ()=>{
 						<div className="col-lg-12 col-md-12">
 							
 							<h2 className="ipt-title">Bem vindo!</h2>
-							<span className="ipn-subtitle">Bem vindo a sua conta</span>
+							<span style={{fontFamily:'Montserrat', fontSize:20}}>Bem vindo a sua conta</span>
 							
 						</div>
 					</div>
@@ -86,22 +126,58 @@ const DashBoard: React.FC = ()=>{
 								
 								<div className="d-user-avater">
 									<img src="assets/img/user-3.jpg" className="img-fluid avater" alt=""/>
-									<h4>User</h4>
-									<span>user@gmail</span>
+									{user!=undefined ?(
+										<>
+									<h4>{user.nome_completo}</h4>
+									{user.tipo_usuario==0 ?(
+										<span>Cliente</span>
+									):(
+										<span>Locátario</span>
+									)}
+									
+										</>
+									):(
+										<>
+									<h4></h4>
+									<span></span>
+										</>
+									)}
 								</div>
 								
 								<div className="d-navigation">
 									<ul>
-										<li className="active"><Link to="/dashboard"><i className="ti-user"></i>Meu Perfil</Link></li>
-										<li><Link  to="/minhas-propriedades"><i className="ti-layers"></i>Minhas Propriedades</Link></li>                                   
-										<li><Link to="/locais-marcados"><i className="ti-bookmark"></i>Locais Marcados</Link></li>        
-										<li><Link to="/criar-propriedade"><i className="ti-pencil-alt"></i>Adicionar propriedade</Link></li>
-										<li><Link  to="/alterar-senha"><i className="ti-unlock"></i>Alterar Senha</Link></li>
-										<li><a href="#"><i className="ti-power-off"></i>Sair</a></li>
+										{user!=undefined?(
+											user.tipo_usuario==1 ?(
+												<>
+												<li className="active"><Link className="active" to="/dashboard"><i className="ti-user"></i>Meu Perfil</Link></li>
+												<li><Link to="/minhas-propriedades"><i className="ti-layers"></i>Minhas propriedades</Link></li> 
+												<li><Link to="/gerenciar-reservas"><i className="ti-agenda"></i>Gerenciar Reservas</Link></li>        
+												<li><Link to="/criar-propriedade"><i className="ti-pencil-alt"></i>Adicionar propriedade</Link></li>
+												<li><Link to="/alterar-senha"><i className="ti-unlock"></i>Alterar Senha</Link></li>
+												<li><a href="#"><i className="ti-power-off"></i>Sair</a></li>
 
-										                                
-										                           
-										
+												<button className="btn btn-theme" type="submit" style={{maxWidth:'325 px', width:'260px'}}>Seja um cliente</button>	
+												
+												</>
+											):(
+            <>
+            
+            <li className="active"><Link className="active" to="/dashboard"><i className="ti-user"></i>Meu Perfil</Link></li>
+            
+            <li><Link to="/locais-marcados"><i className="ti-bookmark"></i>Locais Marcados</Link></li>        
+            <li><Link to="/minhas-reservas"><i className="ti-agenda"></i>Minhas Reservas</Link></li>
+            <li><Link  to="/alterar-senha"><i className="ti-unlock"></i>Alterar Senha</Link></li>
+            <li><a href="#"><i className="ti-power-off"></i>Sair</a></li>
+
+            <button className="btn btn-theme" type="submit" onClick={becomeLocatario} style={{maxWidth:'325 px', width:'260px'}}>Seja um locátario</button>	     
+            </>
+        )
+
+        
+        ):(
+           <p>Usuario não logado</p>
+				                			
+        )}
 										
 									</ul>
 								</div>
@@ -114,48 +190,73 @@ const DashBoard: React.FC = ()=>{
 							
 							<div className="row">
 					
+							{user!=undefined?(
+         user.tipo_usuario==1 ?(
+             <>
+           
 								<div className="col-lg-4 col-md-6 col-sm-12">
 									<div className="dashboard-stat widget-1">
-										<div className="dashboard-stat-content"><h4>R$564,64</h4> <span>Saldo disponível para saque</span></div>
-										<div className="dashboard-stat-icon"><i className="ti-location-pin"></i></div>
+										<div className="dashboard-stat-content"><h4>R$0,00</h4> <span>Saldo disponível para saque</span></div>
+										<div className="dashboard-stat-icon"><i className=" ti-money "></i></div>
 									</div>	
 								</div>
 								
 								<div className="col-lg-4 col-md-6 col-sm-12">
 									<div className="dashboard-stat widget-2">
-										<div className="dashboard-stat-content"><h4>R$102,00</h4> <span>Saldo disponível</span></div>
-										<div className="dashboard-stat-icon"><i className="ti-pie-chart"></i></div>
+										<div className="dashboard-stat-content"><h4>R$0,00</h4> <span>Valores a receber</span></div>
+										<div className="dashboard-stat-icon"><i className=" ti-money "></i></div>
 									</div>	
 								</div>
 								
 								<div className="col-lg-4 col-md-6 col-sm-12">
 									<div className="dashboard-stat widget-3">
-										<div className="dashboard-stat-content"><h4>1.927</h4> <span>Visualizações nos anúncios</span></div>
+										<div className="dashboard-stat-content"><h4>0</h4> <span>Visualizações nos anúncios</span></div>
 										<div className="dashboard-stat-icon"><i className="ti-user"></i></div>
 									</div>	
 								</div>
 								
 								<div className="col-lg-4 col-md-6 col-sm-12">
 									<div className="dashboard-stat widget-4">
-										<div className="dashboard-stat-content"><h4>30</h4> <span>Propriedades anunciadas</span></div>
+										<div className="dashboard-stat-content"><h4>0</h4> <span>Propriedades anunciadas</span></div>
 										<div className="dashboard-stat-icon"><i className="ti-location-pin"></i></div>
 									</div>	
 								</div>
 								
 								<div className="col-lg-4 col-md-6 col-sm-12">
 									<div className="dashboard-stat widget-5">
-										<div className="dashboard-stat-content"><h4>4</h4> <span>Reservas realizadas</span></div>
+										<div className="dashboard-stat-content"><h4>0</h4> <span>Reservas realizadas</span></div>
 										<div className="dashboard-stat-icon"><i className="ti-pie-chart"></i></div>
 									</div>	
 								</div>
 								
 								<div className="col-lg-4 col-md-6 col-sm-12">
 									<div className="dashboard-stat widget-6">
-										<div className="dashboard-stat-content"><h4>2</h4> <span>Médias de reserva/mês</span></div>
+										<div className="dashboard-stat-content"><h4>0</h4> <span>Médias de reserva/mês</span></div>
 										<div className="dashboard-stat-icon"><i className="ti-user"></i></div>
 									</div>	
 								</div>
 
+					
+            
+            </>
+        ):(
+            <>
+                            <div className="col-lg-4 col-md-6 col-sm-12">
+									<div className="dashboard-stat widget-1">
+										<div className="dashboard-stat-content"><h4>R$0,00</h4> <span>Meu Saldo</span></div>
+										<div className="dashboard-stat-icon"><i className="ti-money"></i></div>
+									</div>	
+								</div>
+								
+								
+            </>
+        )
+
+        
+        ):(
+           <p>Usuario não logado</p>
+				                			
+        )}
 							</div>
 					
 							<div className="dashboard-wraper">
@@ -168,43 +269,61 @@ const DashBoard: React.FC = ()=>{
 										
 											<div className="form-group col-md-6">
 												<label>Seu Nome</label>
-												<input type="text" className="form-control" placeholder="Rodrigo Alves"/>
+												<input type="text" className="form-control" placeholder="Rodrigo Alves" value={user.nome_completo}/>
 											</div>
 											
 											<div className="form-group col-md-6">
 												<label>Email</label>
-												<input type="email" className="form-control" placeholder="rodrigo@gmail.com"/>
+												<input type="email" className="form-control" placeholder="rodrigo@gmail.com" value={user.email}/>
 											</div>
 											
 											
 											<div className="form-group col-md-6">
 												<label>Telefone</label>
-												<input type="text" className="form-control" placeholder="(XX)XXXX-XXXX"/>
+												<input type="text" className="form-control" placeholder="(XX)XXXX-XXXX" value={user.telefone}/>
 											</div>
 											
 											<div className="form-group col-md-6">
-												<label>Endereço de cobrança</label>
-												<input type="text" className="form-control" placeholder="Rua Fictícia,7789, Belo Horinzonte, MG"/>
-											</div>
-											
-											<div className="form-group col-md-6">
-												<label>Cidade</label>
-												<input type="text" className="form-control" placeholder="Belo Horizonte"/>
-											</div>
-											
-											<div className="form-group col-md-6">
-												<label>Estado</label>
-												<input type="text" className="form-control" placeholder="Minas Gerais"/>
+												<label>CPF(Apenas digítos)</label>
+												<input type="text" className="form-control" placeholder="XXX.XXX.XXX-XX" value={user.cpf}/>
 											</div>
 											
 											<div className="form-group col-md-6">
 												<label>CEP</label>
-												<input type="text" className="form-control" placeholder="XXXXXXX"/>
+												<input type="text" className="form-control" placeholder="XXXX-XXX" value={user.cep}/>
+											</div>
+											
+											<div className="form-group col-md-6">
+												<label>Bairro</label>
+												<input type="text" className="form-control" placeholder="Barra Da Tijuca" value={user.bairro}/>
+											</div>
+
+											<div className="form-group col-md-6">
+												<label>Cidade</label>
+												<input type="text" className="form-control" placeholder="Rio De Janeiro" value={user.cidade}/>
+											</div>
+
+
+											<div className="form-group col-md-6">
+												<label>Logradouro</label>
+												<input type="text" className="form-control" placeholder="Rua Fictícia" value={user.logradouro}/>
+											</div>
+
+
+											<div className="form-group col-md-6">
+												<label>Complemento</label>
+												<input type="text" className="form-control" placeholder="Casa" value={user.complemento}/>
+											</div>
+
+
+											<div className="form-group col-md-6">
+												<label>Número</label>
+												<input type="text" className="form-control" placeholder="729" value={user.numero}/>
 											</div>
 											
 											<div className="form-group col-md-12">
-												<label>Sobre você</label>
-												<textarea className="form-control">Maecenas quis consequat libero, a feugiat eros. Nunc ut lacinia tortor morbi ultricies laoreet ullamcorper phasellus semper</textarea>
+												<label>Sobre você(Max 301 caracteres)</label>
+												<textarea className="form-control">{user.sobre_voce}</textarea>
 											</div>
 											
 														

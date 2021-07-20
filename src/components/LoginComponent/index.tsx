@@ -34,14 +34,19 @@ const LoginComponent: React.FC = ()=>{
 				abortEarly:false,
 			})
 
-		
+			await signIn({
+				email:data.email,
+				senha:data.senha
+			});
+
+			
 			addToast({
 				title:"Logando..."
 			})
 			
 
 			setTimeout(()=>{
-				window.location.href="http://dev.nspace.com.br/dashboard";
+				window.location.href="https://dev.nspace.com.br/dashboard";
 			  },3000)
 
 	
@@ -51,7 +56,7 @@ const LoginComponent: React.FC = ()=>{
 				console.log(errors)
 				formRef.current?.setErrors(errors)
 			  }
-	 
+			
 			  addToast({
 				type:'error',
 				title:'Erro na autenticação',

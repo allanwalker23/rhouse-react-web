@@ -32,16 +32,21 @@ const CadastroComponent :React.FC = () =>{
 				nome_usuario:Yup.string()
 				.required('Preenchimento obrigátorio'),
 				senha:Yup.string().required("Senha obrigatória"),
-				confirmacao_senha:Yup.string().required("Confirmação obrigatória"),
+				confirmacao_senha:Yup.string()
+				.oneOf([Yup.ref('senha'), null], 'As senhas não conhecidem'),
 				telefone: Yup.string().matches(phoneRegExp, 'Telefone não válido')
 			});
-
-			if(data.senha!=data.confirmacao_senha){
-				throw new Error('As senhas não conhecidem')
-			}
 	
 			await schema.validate(data,{
 				abortEarly:false,
+			})
+
+			await api.post('/usuarios',{
+				nome_completo:data.nome_completo,
+				nome_usuario:data.nome_usuario,
+				email:data.email,
+				senha:data.senha,
+				telefone:data.telefone
 			})
 
 			  addToast({
@@ -49,9 +54,11 @@ const CadastroComponent :React.FC = () =>{
 				title:'Cadastro Realizado com sucessso',
 				description:'Você já pode fazer seu login'
 			  })
+
+			 
 			  
 			  setTimeout(()=>{
-				window.location.href="http://dev.nspace.com.br/";
+				window.location.href="https://dev.nspace.com.br/";
 			  },3000)
 			  
 			  
@@ -101,13 +108,8 @@ const CadastroComponent :React.FC = () =>{
 										placeholder="Senha" type="password" typeInput="text" />
 
 										<InputCadastro icon="ti-unlock" name="confirmacao_senha" 
-										placeholder="Confirmar senha" type="password" typeInput="text" />
+										placeholder="Confirmar senha" type="password" typeInput="text" />		
 
-										<InputCadastro icon="ti-unlock" name="cidade" 
-										placeholder="Cidade" type="password" typeInput="text" />
-
-										<InputCadastro icon="ti-city" name="tipo_conta" 	
-										placeholder="Tipo Conta" type="text" typeInput="option" />
 										
 										
 									</div>

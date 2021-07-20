@@ -24,7 +24,7 @@ const Noticia: React.FC<NoticiaProps> = ({titulo,subtitulo,url_foto}) =>{
             <div className="blog-body">
                 <h4 className="bl-title"><a href="#">{titulo}</a></h4>
                 <p>{subtitulo}</p>
-                <a href="#" className="bl-continue">Continuar</a>
+                <a href="#" className="bl-continue" style={{fontFamily:'Montserrat'}}>Continuar</a>
             </div>
             
         </div>

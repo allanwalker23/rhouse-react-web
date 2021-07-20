@@ -32,6 +32,7 @@ const ToastProvider: React.FC = ({ children }) => {
       };
 
       setMessages(state => [...state, toast]);
+      $("html, body").animate({ scrollTop: 0 }, "slow");
     },
     [],
   );

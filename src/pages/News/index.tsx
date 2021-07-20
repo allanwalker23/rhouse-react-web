@@ -20,7 +20,7 @@ const News:React.FC = ()=>{
 	
 
     return(
-		<body className="default-skin">
+		<body className="default-skin" style={{backgroundColor:'#f0f8fe'}}>
     
         
         <div id="main-wrapper">
@@ -46,9 +46,6 @@ const News:React.FC = ()=>{
 
 									<li><Link to="/noticias">Notícias</Link></li>
 		
-									{user==undefined &&(
-									<li><a href="JavaScript:Void(0);" data-toggle="modal" data-target="#signup">Criar conta</a></li>
-									)}
 								
 							</ul>
 							
@@ -66,7 +63,7 @@ const News:React.FC = ()=>{
 						<div className="col-lg-12 col-md-12">
 							
 							<h2 className="ipt-title">Nossas notícias</h2>
-							<span className="ipn-subtitle">Veja nossas últimas notícias & artigos</span>
+							<span style={{fontFamily:'Montserrat', fontSize:20}}>Veja nossas últimas notícias & artigos</span>
 							
 						</div>
 					</div>

@@ -123,7 +123,7 @@ const SubmitProperty:React.FC = () =>{
 	
 
     return(
-		<body className="default-skin">
+		<body className="default-skin" style={{backgroundColor:'#f0f8fe'}}>
 
         <div id="main-wrapper">
 		
@@ -146,13 +146,7 @@ const SubmitProperty:React.FC = () =>{
 	
 							<li><Link to="/pesquisa">Pesquisa</Link></li>
 	
-							<li><Link to="/dashboard">DashBoard</Link></li>
-
-							<li><Link to="/noticias">Notícias</Link></li>
-									
-							{user==undefined &&(
-							<li><a href="JavaScript:Void(0);" data-toggle="modal" data-target="#signup">Criar conta</a></li>
-							)}
+						
 							</ul>
 							
 							<NavBarLoged/>
@@ -169,7 +163,7 @@ const SubmitProperty:React.FC = () =>{
 						<div className="col-lg-12 col-md-12">
 							
 							<h2 className="ipt-title">Adicionar Local</h2>
-							<span className="ipn-subtitle">Preencha os campos para adicionar a propriedade</span>
+							<span style={{fontFamily:'Montserrat', fontSize:20}}>Preencha os campos para adicionar a propriedade</span>
 							
 						</div>
 					</div>
@@ -180,13 +174,24 @@ const SubmitProperty:React.FC = () =>{
 			
 				<div className="container">
 					<div className="row">
-						<div className="col-lg-12 col-md-12">
-						
+					<div className="col-lg-12 col-md-12">
+						{user!=undefined ?(
+							
+							<>
+							</>
+							
+							):(
+							<>
 							<div className="alert alert-success" role="alert">
 							<p>Por favor, entre antes de enviar uma propriedade. Se você não tem uma conta, você pode criar uma <a href="#">Clicando Aqui</a></p>
 							</div>
-						
+					
+							</>
+					
+							)
+						}
 						</div>
+						
 						
 						<div className="col-lg-12 col-md-12">
 						<Form ref={formRef} onSubmit={handleSubmit}>
@@ -444,6 +449,21 @@ const SubmitProperty:React.FC = () =>{
 														<li>
 															<input id="a-12" className="checkbox-custom" name="a-12" type="checkbox"/>
 															<label htmlFor="a-12" className="checkbox-custom-label">Estacionamento</label>
+														</li>
+
+														<li>
+															<input id="a-13" className="checkbox-custom" name="a-13" type="checkbox"/>
+															<label htmlFor="a-13" className="checkbox-custom-label">Sauna</label>
+														</li>
+
+														<li>
+															<input id="a-14" className="checkbox-custom" name="a-14" type="checkbox"/>
+															<label htmlFor="a-14" className="checkbox-custom-label">Área de Lazer</label>
+														</li>
+
+														<li>
+															<input id="a-15" className="checkbox-custom" name="a-15" type="checkbox"/>
+															<label htmlFor="a-15" className="checkbox-custom-label">Playground</label>
 														</li>
 													</ul>
 												</div>

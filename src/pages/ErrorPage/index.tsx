@@ -12,8 +12,8 @@ const ErrorPage = () =>{
 	const {user}= useAuth()
 	
     return(
-		<body className="default-skin">      
-        <div id="preloader"><div className="preloader"><span></span><span></span></div></div>
+		<body className="default-skin" style={{backgroundColor:'#f0f8fe'}}>      
+        
 		
         
         <div id="main-wrapper">

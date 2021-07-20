@@ -22,7 +22,7 @@ const LocalDetails = () =>{
 	
 
     return(
-		<body className="default-skin">
+		<body className="default-skin" style={{backgroundColor:'#f0f8fe'}}>
 	
 		
         <div id="main-wrapper">
@@ -308,33 +308,16 @@ const LocalDetails = () =>{
 								
 								<div className="slide-property-sec mb-4">
 									<div className="pr-all-info">
-										
-										<div className="pr-single-info">
-											<div className="share-opt-wrap">
-												<button type="button" className="btn-share" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-original-title="Share this">
-													<i className="lni-share"></i>
-												</button>
-												<div className="dropdown-menu animated flipInX">
-													<a href="#" className="cl-facebook"><i className="lni-facebook"></i></a>
-													<a href="#" className="cl-twitter"><i className="lni-twitter"></i></a>
-													<a href="#" className="cl-gplus"><i className="lni-google-plus"></i></a>
-													<a href="#" className="cl-instagram"><i className="lni-instagram"></i></a>
-												</div>
-											</div>
 
+									<div className="btn_wrap">
+										<span className="span-share-button">Compartilhar</span>
+										<div className="container-share-button">
+											<i className="fab fa-facebook-f"></i>
+											<i className="fab fa-twitter"></i>
+											<i className="fab fa-instagram"></i>
+											<i className="fab fa-github"></i>
 										</div>
-										
-										<div className="pr-single-info">
-											<a href="JavaScript:Void(0);" data-toggle="tooltip" data-original-title="Get Print"><i className="ti-printer"></i></a>
-										</div>
-										
-										<div className="pr-single-info">
-											<a href="JavaScript:Void(0);" className="compare-button" data-toggle="tooltip" data-original-title="Compare"><i className="ti-control-shuffle"></i></a>
-										</div>
-										
-										<div className="pr-single-info">
-											<a href="JavaScript:Void(0);" className="like-bitt add-to-favorite" data-toggle="tooltip" data-original-title="Add To Favorites"><i className="lni-heart-filled"></i></a>
-										</div>
+									</div>
 										
 									</div>
 								</div>
@@ -349,7 +332,7 @@ const LocalDetails = () =>{
 								
 								<div className="sidebar-widgets">
 									
-									<h4>Locais nas Proximidades</h4>
+									<h4>Locais parecidos nas proximidades</h4>
 									
 									<div className="sidebar_featured_property">
 										

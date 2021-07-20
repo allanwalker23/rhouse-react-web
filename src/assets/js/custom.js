@@ -383,13 +383,13 @@ $(function() {
 	
 	// Select Bedrooms
 	$('#bedrooms').select2({
-		placeholder: "Quantidade de banheiros",
+		placeholder: "Quantidade de quartos",
 		allowClear: false
 	});
 	
 	// Select Bathrooms
 	$('#bathrooms').select2({
-		placeholder: "Quantidade de quartos",
+		placeholder: "Quantidade de banheiros",
 		allowClear: false
 	});
 	

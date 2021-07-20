@@ -16,6 +16,7 @@ interface AuthContextData{
     user:object;
     signIn(credencials:SignInCredentials):Promise<void>;
     signOut():void;
+    refreshUser(id:string,token:string):void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -47,6 +48,21 @@ export const AuthProvider: React.FC = ({children})=>{
         setData({token,user})
     },[])
 
+    const refreshUser = useCallback(async ({id,token_received})=>{
+        const token =localStorage.getItem('@NSpace:token');
+       
+        if(token!=token_received){
+            throw new Error("token must be same that loged");
+        }
+        
+        const response = await api.get('usuarios/findUser/'+id)
+        const user = response.data
+        localStorage.setItem('@NSpace:user',JSON.stringify(user))
+
+        setData({token:token_received,user})
+    },[])
+
+
     const signOut = useCallback(()=>{
         localStorage.removeItem('@NSpace:token');
         localStorage.removeItem('@NSpace:user')
@@ -55,7 +71,7 @@ export const AuthProvider: React.FC = ({children})=>{
     },[])
 
     return(
-        <AuthContext.Provider value={{signIn,signOut,user:data.user}}>
+        <AuthContext.Provider value={{signIn,signOut,refreshUser,user:data.user}}>
         {children}
         </AuthContext.Provider>
     )

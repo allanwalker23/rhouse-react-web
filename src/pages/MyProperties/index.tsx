@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import LogoNavBar from '../../components/LogoNavBar';
 import NavBarLoged from '../../components/NavBarLoged';
@@ -9,15 +9,28 @@ import { locais } from '../../utils/contents';
 import { loadScripts } from '../Home';
 
 const MyProperties:React.FC = ()=>{
-	//const {user}:any=useAuth()
+	const {user}:any=useAuth()
+	const history=useHistory();
+
 	useEffect(() => {
+		//Verificação De Usuário Logado
+		new Promise((resolve, reject) => {
+			setTimeout(()=>{
+			resolve('')
+			},300)
+		
+		   }).then(()=>{
+			   if(user==undefined){
+				   history.push({pathname:'/error'})
+			   }
+		   })
 		loadScripts();
 	});
 
 
     return(
         <>
-	<body className="default-skin">      
+	<body className="default-skin" style={{backgroundColor:'#f0f8fe'}}>      
 		
         <div id="main-wrapper">
 
@@ -57,8 +70,7 @@ const MyProperties:React.FC = ()=>{
 						<div className="col-lg-12 col-md-12">
 								
 						<h2 className="ipt-title">Bem vindo!</h2>
-							<span className="ipn-subtitle">Bem vindo a sua conta</span>
-							
+							<span style={{fontFamily:'Montserrat', fontSize:20}}>Bem Vindo a sua conta</span>
 						</div>
 					</div>
 				</div>
@@ -72,19 +84,58 @@ const MyProperties:React.FC = ()=>{
 								
 								<div className="d-user-avater">
 									<img src="assets/img/user-3.jpg" className="img-fluid avater" alt=""/>
-									<h4>User</h4>
-									<span>user@gmail</span>
+									{user!=undefined ?(
+										<>
+									<h4>{user.nome_completo}</h4>
+									{user.tipo_usuario==0 ?(
+										<span>Cliente</span>
+									):(
+										<span>Locátario</span>
+									)}
+									
+										</>
+									):(
+										<>
+									<h4></h4>
+									<span></span>
+										</>
+									)}
 								</div>
 								
 								<div className="d-navigation">
 									<ul>
-										<li><Link to="/dashboard"><i className="ti-user"></i>Meu Perfil</Link></li>
-										<li className="active"><Link to="/minhas-propriedades"><i className="ti-layers"></i>Minhas Propriedades</Link></li>                                   
-										<li><Link to="/locais-marcados"><i className="ti-bookmark"></i>Locais Marcados</Link></li>        
-										<li><Link to="/criar-propriedade"><i className="ti-pencil-alt"></i>Adicionar propriedade</Link></li>
-										<li><Link className="active" to="/alterar-senha"><i className="ti-unlock"></i>Alterar Senha</Link></li>
-										<li><a href="#"><i className="ti-power-off"></i>Sair</a></li>
+									{user!=undefined?(
+         user.tipo_usuario==1 ?(
+             <>
+            <li ><Link to="/dashboard"><i className="ti-user"></i>Meu Perfil</Link></li>
+            <li className="active"><Link className="active" to="/minhas-propriedades"><i className="ti-layers"></i>Minhas propriedades</Link></li> 
+            <li><Link to="/gerenciar-reservas"><i className="ti-agenda"></i>Gerenciar Reservas</Link></li>        
+            <li><Link to="/criar-propriedade"><i className="ti-pencil-alt"></i>Adicionar propriedade</Link></li>
+            <li><Link to="/alterar-senha"><i className="ti-unlock"></i>Alterar Senha</Link></li>
+            <li><a href="#"><i className="ti-power-off"></i>Sair</a></li>
 
+            <button className="btn btn-theme" type="submit" style={{maxWidth:'325 px', width:'260px'}}>Seja um cliente</button>	
+            
+            </>
+        ):(
+            <>
+            
+            <li><Link to="/dashboard"><i className="ti-user"></i>Meu Perfil</Link></li>
+            
+            <li><Link to="/locais-marcados"><i className="ti-bookmark"></i>Locais Marcados</Link></li>        
+            <li><Link to="/minhas-reservas"><i className="ti-agenda"></i>Minhas Reservas</Link></li>
+            <li><Link to="/alterar-senha"><i className="ti-unlock"></i>Alterar Senha</Link></li>
+            <li><a href="#"><i className="ti-power-off"></i>Sair</a></li>
+
+            <button className="btn btn-theme" type="submit" style={{maxWidth:'325 px', width:'260px'}}>Seja um locátario</button>	     
+            </>
+        )
+
+        
+        ):(
+           <p>Usuario não logado</p>
+				                			
+        )}
 									</ul>
 								</div>
 								

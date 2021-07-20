@@ -14,9 +14,9 @@ interface LogoNavBarProps{
             </>
         )}
 
-    {type=="other" &&(
+        {type=="other" &&(
             <>
-          <img src="assets/img/NSPACE-01.png" className="logo" alt="" />
+          <img src="assets/img/nspace-laranja.png" className="logo" alt="" />
             </>
         )}
         

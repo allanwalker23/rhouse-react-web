@@ -17,7 +17,7 @@ const Payment:React.FC = ()=>{
 
 	
     return(
-		<body className="default-skin">
+		<body className="default-skin" style={{backgroundColor:'#f0f8fe'}}>
 		
         <div id="main-wrapper">
 		
@@ -45,9 +45,7 @@ const Payment:React.FC = ()=>{
 
 							<li className="active"><Link to="/pagamentos">Pagamentos</Link></li>		
 
-							{user==undefined &&(
-								<li><a href="JavaScript:Void(0);" data-toggle="modal" data-target="#signup">Criar conta</a></li>
-							)}
+							
 							
 							</ul>
 							
@@ -65,8 +63,8 @@ const Payment:React.FC = ()=>{
 						<div className="col-lg-12 col-md-12">
 							
 							<h2 className="ipt-title">Métodos de Pagamento</h2>
-							<span className="ipn-subtitle">Escolha sua forma de pagar</span>
-							
+							<span style={{fontFamily:'Montserrat', fontSize:20}}>Escolha sua forma de pagar</span>
+
 						</div>
 					</div>
 				</div>

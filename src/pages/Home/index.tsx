@@ -140,15 +140,8 @@ const Home:React.FC = () =>{
 	const{user}:any = useAuth();
 
 	useEffect(()=>{
-		api.get('/propriedades').then(r=>{
-			setPropriedadesRecentes(r.data)
-						
-		})
-		setTimeout(()=>{
-			loadScripts();
-		},3000)
+		loadScripts();
 		
-	
 		
 	},[])
 
@@ -166,7 +159,7 @@ const Home:React.FC = () =>{
 	 
     return(
 	
-		<body className="default-skin">
+		<body className="default-skin" style={{backgroundColor:'#f0f8fe'}}>
 		<>
         <div id="main-wrapper">
 		
@@ -222,7 +215,7 @@ const Home:React.FC = () =>{
 										<div className="input-with-icon">
 											<select id="ptypes" onChange={(e)=>SetSearchTipoPropriedade("tipo_propriedade_id="+Number(e.target.value)+"&")} className="form-control">
 												<option value="">&nbsp;</option>
-												{TiposPropriedades.map((local)=>(
+												{tiposLocais.map((local)=>(
 													<option value={local.id}>{local.nome}</option>
 												))}
 											</select>
@@ -236,9 +229,7 @@ const Home:React.FC = () =>{
 										<div className="input-with-icon">
 											<select id="check-in" onChange={(e)=>SetSearchTipoPropriedade("tipo_propriedade_id="+Number(e.target.value)+"&")} className="form-control">
 												<option value="">&nbsp;</option>
-												{TiposPropriedades.map((local)=>(
-													<option value={local.id}>{local.nome}</option>
-												))}
+												<option value="1">Aqui surgirá um componente do calendário</option>
 											</select>
 											<i className="ti-briefcase"></i>
 										</div>
@@ -262,14 +253,14 @@ const Home:React.FC = () =>{
 				</div>
 			</div>
 			
-			<section>
+			<section  style={{backgroundColor:'#f0f8fe',backgroundImage:'url(assets/img/grafismo-home-page.png)', backgroundRepeat:'repeat-x',backgroundPosition:'left', backgroundSize:300}}>
 				<div className="container">
 				
 					<div className="row">
 						<div className="col-lg-12 col-md-12">
 							<div className="sec-heading center">
-								<h2>Locais Em Alta</h2>
-								<p>Ache o lugar perfeito</p>
+								<h2>TOP Anúncios</h2>
+								<p>Anuncie e tenha seu local em destaque</p>
 							</div>
 						</div>
 					</div>
@@ -326,14 +317,14 @@ const Home:React.FC = () =>{
 				</div>
 			</section>
 			
-			<section className="gray">
+			<section className="gray"  >
 				<div className="container">
 				
-					<div className="row">
+				<div className="row">
 						<div className="col-lg-12 col-md-12">
 							<div className="sec-heading center">
-								<h2>Adicionados recentemente</h2>
-								<p>Encontre um novo local</p>
+								<h2>Locais Em Alta</h2>
+								<p>Ache o lugar perfeito</p>
 							</div>
 						</div>
 					</div>
@@ -394,143 +385,64 @@ const Home:React.FC = () =>{
 					<div className="row">
 						<div className="col-lg-12 col-md-12">
 							<div className="sec-heading center">
-								<h2>Nossos locatários em destaque</h2>
-								<p>Alugue com nossos melhores locatários</p>
+								<h2>Adicionados recentemente</h2>
+								<p>Encontre um novo local</p>
 							</div>
 						</div>
 					</div>
+
 					
 					<div className="row">
-						
-						<div className="col-lg-4 col-md-6 col-sm-12">
-							<div className="agents-grid">
+					<div className="col-lg-12 col-md-12">
+							<div className="property-slide">
 								
-								<div className="jb-bookmark"><a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Bookmark"><i className="ti-bookmark"></i></a></div>
-								<div className="agent-call"><a href="#"><i className="lni-phone-handset"></i></a></div>
-								<div className="agents-grid-wrap">
-									
-									<div className="fr-grid-thumb">
-										<a href="#">
-											<div className="overall-rate">4.4</div>
-											<img src="assets/img/user-1.jpg" className="img-fluid mx-auto" alt="" />
-										</a>
-									</div>
-									<div className="fr-grid-deatil">
-										<h5 className="fr-can-name"><a href="#">Rodrigo Alves</a></h5>
-										<span className="fr-position"><i className="lni-map-marker"></i>3599 Minas Gerais</span>
-										<div className="fr-can-rating">
-											<i className="ti-star filled"></i>
-											<i className="ti-star filled"></i>
-											<i className="ti-star filled"></i>
-											<i className="ti-star filled"></i>
-											<i className="ti-star"></i>
+							{locais.map((local)=>(
+
+										<div key={local.id} className="single-items">
+										<div className="property-listing property-2">
+
+											<div className="listing-img-wrapper">
+												<div className="list-img-slide">
+													<div className="click">
+														<div><Link to="/apartamentos/apartamento-belo-horizonte"><img src={local.foto1} className="img-fluid mx-auto" alt="" /></Link></div>
+														<div><Link to="/apartamentos/apartamento-belo-horizonte"><img src={local.foto2} className="img-fluid mx-auto" alt="" /></Link></div>
+														<div><Link to="/apartamentos/apartamento-belo-horizonte"><img src={local.foto3} className="img-fluid mx-auto" alt="" /></Link></div>
+													</div>
+												</div>
+												
+											</div>
+											
+											<div className="listing-detail-wrapper pb-0">
+												<div className="listing-short-detail">
+													<h4 className="listing-name"><Link to="/apartamentos/apartamento-belo-horizonte">{local.nome}</Link><i className="list-status ti-check"></i></h4>
+												</div>
+											</div>
+											
+											<div className="price-features-wrapper">
+												<div className="listing-price-fx">
+													<h6 className="listing-card-info-price">R${local.preco_dia}<span className="price-suffix">/dia</span></h6>
+												</div>
+												<div className="list-fx-features">
+													<div className="listing-card-info-icon">
+														<span ><BsFillPersonFill size={20} style={{paddingTop:10}}/>15 Pessoas</span>
+													</div>
+													<div className="listing-card-info-icon">
+														<span className="inc-fleat inc-bath">1 Banheiro</span>
+													</div>
+												</div>
+											</div>
+											
 										</div>
-									</div>
-									
-								</div>
-								
-								<div className="fr-grid-info">
-									<ul>
-										<li>Propriedades<span>306</span></li>
-										
-									</ul>
-								</div>
-								
-								<div className="fr-grid-footer">
-									<a href="#" className="btn btn-outline-theme full-width">Ver Perfil<i className="ti-arrow-right ml-1"></i></a>
-								</div>
-								
-							</div>
-						</div>
-						
-						<div className="col-lg-4 col-md-6 col-sm-12">
-							<div className="agents-grid">
-								
-								<div className="jb-bookmark"><a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Bookmark"><i className="ti-bookmark"></i></a></div>
-								<div className="agent-call"><a href="#"><i className="lni-phone-handset"></i></a></div>
-								<div className="agents-grid-wrap">
-									
-									<div className="fr-grid-thumb">
-										<a href="#">
-											<div className="overall-rate">4.3</div>
-											<img src="assets/img/user-2.jpg" className="img-fluid mx-auto" alt="" />
-										</a>
-									</div>
-									<div className="fr-grid-deatil">
-										<h5 className="fr-can-name"><a href="#">Ana Martins</a></h5>
-										<span className="fr-position"><i className="lni-map-marker"></i>3599 Minas Gerais</span>
-										<div className="fr-can-rating">
-											<i className="ti-star filled"></i>
-											<i className="ti-star filled"></i>
-											<i className="ti-star filled"></i>
-											<i className="ti-star filled"></i>
-											<i className="ti-star"></i>
 										</div>
+										))}
 									</div>
-									
 								</div>
-								
-								<div className="fr-grid-info">
-									<ul>
-										<li>Propriedades<span>306</span></li>
-									
-									</ul>
-								</div>
-								
-								<div className="fr-grid-footer">
-									<a href="#" className="btn btn-outline-theme full-width">Ver Perfil<i className="ti-arrow-right ml-1"></i></a>
-								</div>
-								
-							</div>
-						</div>
-						
-						<div className="col-lg-4 col-md-6 col-sm-12">
-							<div className="agents-grid">
-								
-								<div className="jb-bookmark"><a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Bookmark"><i className="ti-bookmark"></i></a></div>
-								<div className="agent-call"><a href="#"><i className="lni-phone-handset"></i></a></div>
-								<div className="agents-grid-wrap">
-									
-									<div className="fr-grid-thumb">
-										<a href="#">
-											<div className="overall-rate">4.5</div>
-											<img src="assets/img/user-3.jpg" className="img-fluid mx-auto" alt="" />
-										</a>
-									</div>
-									<div className="fr-grid-deatil">
-										<h5 className="fr-can-name"><a href="#">Anderson Vital</a></h5>
-										<span className="fr-position"><i className="lni-map-marker"></i>3599 São Paulo</span>
-										<div className="fr-can-rating">
-											<i className="ti-star filled"></i>
-											<i className="ti-star filled"></i>
-											<i className="ti-star filled"></i>
-											<i className="ti-star filled"></i>
-											<i className="ti-star"></i>
-										</div>
-									</div>
-									
-								</div>
-								
-								<div className="fr-grid-info">
-									<ul>
-										<li>Propriedades<span>306</span></li>
-									
-									</ul>
-								</div>
-								
-								<div className="fr-grid-footer">
-									<a href="#" className="btn btn-outline-theme full-width">Ver Perfil<i className="ti-arrow-right ml-1"></i></a>
-								</div>
-								
-							</div>
-						</div>
-						
 					</div>
 					
 				</div>
 			</section>
 			
-			<section className="image-cover"  style={{backgroundImage:'url(assets/img/tour-6.jpg)', backgroundRepeat:'none'}} data-overlay="8">
+			<section className="image-cover"  style={{backgroundImage:'url(assets/img/fundo-depoimentos.jpg)', backgroundRepeat:'none'}} data-overlay="8">
 				
 				<div className="container">
 				
@@ -609,7 +521,7 @@ const Home:React.FC = () =>{
 						<div className="col text-center">
 							<div className="sec-heading center">
 								<h2>Últimos artigos</h2>
-								<p>Nós da equipe NSpace postamos artigos regularmente para você não perde nenhuma novidade</p>
+								<p>Nós da equipe NSpace postamos artigos regularmente para você não perder nenhuma novidade</p>
 							</div>
 						</div>
 					</div>

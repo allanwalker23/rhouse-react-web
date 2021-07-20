@@ -41,7 +41,7 @@ const Search:React.FC =()=>{
 
 	
     return(
-        <body className="default-skin">
+        <body className="default-skin" style={{backgroundColor:'#f0f8fe'}}>
         
         <div id="main-wrapper">
 		
@@ -62,11 +62,6 @@ const Search:React.FC =()=>{
 	
 							<li className="active"><Link to="/pesquisa">Pesquisa</Link></li>
 
-									
-							{user==undefined &&(
-									<li><a href="JavaScript:Void(0);" data-toggle="modal" data-target="#signup">Criar conta</a></li>
-									)}
-									
 							</ul>
 							
 							<NavBarLoged/>
@@ -83,7 +78,7 @@ const Search:React.FC =()=>{
 						<div className="col-lg-12 col-md-12">
 							
 							<h2 className="ipt-title">Lista de locais</h2>
-							<span className="ipn-subtitle">Escolha um local </span>
+							<span style={{fontFamily:'Montserrat', fontSize:20}}>Escolha um local </span>
 							
 						</div>
 					</div>
@@ -114,13 +109,7 @@ const Search:React.FC =()=>{
 								<div className="sidebar-widgets">
 									
 									<h5 className="mb-3">Pesquise uma nova propriedade</h5>
-									
-									<div className="form-group">
-										<div className="input-with-icon">
-											<input type="text" className="form-control" placeholder="Informe o bairro"/>
-											<i className="ti-search"></i>
-										</div>
-									</div>
+								
 									
 									<div className="form-group">
 										<div className="input-with-icon">
@@ -143,19 +132,6 @@ const Search:React.FC =()=>{
 										</div>
 									</div>
 									
-									<div className="form-group">
-										<div className="input-with-icon">
-											<select id="bathrooms" className="form-control">
-												<option value="">&nbsp;</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-											</select>
-											<i className="fas fa-bath"></i>
-										</div>
-									</div>
 									
 									<div className="form-group">
 										<div className="input-with-icon">
@@ -163,18 +139,6 @@ const Search:React.FC =()=>{
 												<option value="">&nbsp;</option>
 												{tiposLocais.map((local)=>(
 													<option value={local.id}>{local.nome}</option>
-												))}
-											</select>
-											<i className="ti-briefcase"></i>
-										</div>
-									</div>
-									
-									<div className="form-group">
-										<div className="input-with-icon">
-											<select id="cities" className="form-control">
-												<option value="">&nbsp;</option>
-												{cidades.map((cidades)=>(
-													<option value={cidades.id}>{cidades.nome}</option>
 												))}
 											</select>
 											<i className="ti-briefcase"></i>
@@ -208,7 +172,7 @@ const Search:React.FC =()=>{
 									
 									<div className="range-slider">
 										<label>Alcance da busca</label>
-										<div data-min="0" data-max="200" data-min-name="min_area" data-max-name="max_area" data-unit="KM" className="range-slider-ui ui-slider" aria-disabled="false"></div>
+										<div data-min="0" data-max="200"  data-max-name="max_area" data-unit="KM" className="range-slider-ui ui-slider" aria-disabled="false"></div>
 										<div className="clearfix"></div>
 									</div>
 
@@ -265,6 +229,21 @@ const Search:React.FC =()=>{
 														<li>
 															<input id="a-12" className="checkbox-custom" name="a-12" type="checkbox"/>
 															<label htmlFor="a-12" className="checkbox-custom-label">Estacionamento</label>
+														</li>
+
+														<li>
+															<input id="a-13" className="checkbox-custom" name="a-13" type="checkbox"/>
+															<label htmlFor="a-13" className="checkbox-custom-label">Sauna</label>
+														</li>
+
+														<li>
+															<input id="a-14" className="checkbox-custom" name="a-14" type="checkbox"/>
+															<label htmlFor="a-14" className="checkbox-custom-label">Área de Lazer</label>
+														</li>
+
+														<li>
+															<input id="a-15" className="checkbox-custom" name="a-15" type="checkbox"/>
+															<label htmlFor="a-15" className="checkbox-custom-label">Playground</label>
 														</li>
 											</ul>
 										</div>

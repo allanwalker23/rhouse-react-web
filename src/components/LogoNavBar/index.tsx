@@ -9,14 +9,14 @@ interface LogoNavBarProps{
         <>
         {type=="home" &&(
             <>
-            <a className="nav-brand static-logo" href="#"><img src="assets/img/nspace-laranja.png" className="logo" alt="" /></a>
-            <a className="nav-brand fixed-logo" href="#"><img src="assets/img/nspace-laranja.png" className="logo" alt="" /></a>
+            <a className="nav-brand static-logo" href="#"><img src="assets/img/logo-branco.png" className="logo" style={{width:'550px'}} alt="" /></a>
+            <a className="nav-brand fixed-logo" href="#"><img src="assets/img/logo-preto.png" className="logo" style={{width:'550px'}} alt="" /></a>
             </>
         )}
 
         {type=="other" &&(
             <>
-          <img src="assets/img/nspace-laranja.png" className="logo" alt="" />
+          <img src="assets/img/logo-preto.png" className="logo" alt="" />
             </>
         )}
         

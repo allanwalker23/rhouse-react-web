@@ -46,7 +46,7 @@ const LoginComponent: React.FC = ()=>{
 			
 
 			setTimeout(()=>{
-				window.location.href="https://dev.nspace.com.br/dashboard";
+				window.location.href="http://localhost:3000/dashboard";
 			  },3000)
 
 	

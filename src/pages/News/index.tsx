@@ -117,7 +117,7 @@ const News:React.FC = ()=>{
 								</div>
 								
 								<div className="blog-body">
-									<h4 className="bl-title"><a href="#">Quais os beneficíos de alugar um local na NSpace</a></h4>
+									<h4 className="bl-title"><a href="#">Quais os beneficíos de alugar um local na Rhouse</a></h4>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. </p>
 									<a href="#" className="bl-continue">Continuar</a>
 								</div>
@@ -137,7 +137,7 @@ const News:React.FC = ()=>{
 								</div>
 								
 								<div className="blog-body">
-									<h4 className="bl-title"><a href="#">O que as pessoas dizem sobre os locais da NSpace</a></h4>
+									<h4 className="bl-title"><a href="#">O que as pessoas dizem sobre os locais da </a></h4>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. </p>
 									<a href="#" className="bl-continue">Continuar</a>
 								</div>
@@ -177,7 +177,7 @@ const News:React.FC = ()=>{
 								</div>
 								
 								<div className="blog-body">
-									<h4 className="bl-title"><a href="#">Quais os beneficíos de alugar um local na NSpace</a></h4>
+									<h4 className="bl-title"><a href="#">Quais os beneficíos de alugar um local na Rhouse</a></h4>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. </p>
 									<a href="#" className="bl-continue">Continuar</a>
 								</div>
@@ -197,7 +197,7 @@ const News:React.FC = ()=>{
 								</div>
 								
 								<div className="blog-body">
-									<h4 className="bl-title"><a href="#">O que as pessoas dizem sobre os locais da NSpace</a></h4>
+									<h4 className="bl-title"><a href="#">O que as pessoas dizem sobre os locais da Rhouse</a></h4>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. </p>
 									<a href="#" className="bl-continue">Continuar</a>
 								</div>

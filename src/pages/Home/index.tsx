@@ -11,7 +11,7 @@ import { useAuth } from '../../hooks/auth';
 import LogoNavBar from '../../components/LogoNavBar';
 import { cidades, locais, tiposLocais } from '../../utils/contents';
 import NavBarLoged from '../../components/NavBarLoged';
-import api from '../../services/api';
+
 import {BsFillPersonFill} from 'react-icons/bs';
 
 
@@ -464,7 +464,7 @@ const Home:React.FC = () =>{
 											</div>
 											<div className="st-author-info">
 												<h4 className="st-author-title">Rodrigo Alves</h4>
-												<span className="st-author-subtitle">Usuário do NSpace</span>
+												<span className="st-author-subtitle">Usuário do Rhouse</span>
 											</div>
 										</div>
 									</div>
@@ -482,7 +482,7 @@ const Home:React.FC = () =>{
 											</div>
 											<div className="st-author-info">
 												<h4 className="st-author-title">Ana Carolina</h4>
-												<span className="st-author-subtitle">Locadora do NSpace</span>
+												<span className="st-author-subtitle">Locadora do Rhouse</span>
 											</div>
 										</div>
 									</div>
@@ -500,7 +500,7 @@ const Home:React.FC = () =>{
 											</div>
 											<div className="st-author-info">
 												<h4 className="st-author-title">Ana Vitória</h4>
-												<span className="st-author-subtitle">Usuária Do NSpace</span>
+												<span className="st-author-subtitle">Usuária Do Rhouse</span>
 											</div>
 										</div>
 									</div>
@@ -521,7 +521,7 @@ const Home:React.FC = () =>{
 						<div className="col text-center">
 							<div className="sec-heading center">
 								<h2>Últimos artigos</h2>
-								<p>Nós da equipe NSpace postamos artigos regularmente para você não perder nenhuma novidade</p>
+								<p>Nós da equipe Rhouse postamos artigos regularmente para você não perder nenhuma novidade</p>
 							</div>
 						</div>
 					</div>
@@ -532,11 +532,11 @@ const Home:React.FC = () =>{
 					 subtitulo="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. "
 					 key="1" url_foto="assets/img/p-11.jpg" />
 
-					<Noticia titulo="Quais os beneficíos de alugar um local na NSpace"
+					<Noticia titulo="Quais os beneficíos de alugar um local na Rhouse"
 					 subtitulo="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. "
 					 key="2" url_foto="assets/img/p-12.jpg" />
 
-					<Noticia titulo="O que as pessoas dizem sobre os locais da NSpace"
+					<Noticia titulo="O que as pessoas dizem sobre os locais da Rhouse"
 					 subtitulo="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. "
 					 key="3" url_foto="assets/img/p-13.jpg" />
 						

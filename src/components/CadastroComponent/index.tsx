@@ -7,6 +7,8 @@ import getValidationError from '../../utils/getValidationErrors';
 import { useToast } from '../../hooks/toast';
 import { useHistory } from 'react-router-dom';
 import api from '../../services/api';
+
+
 interface SignInFormData{
 	email:string;
 	senha:string;
@@ -58,7 +60,7 @@ const CadastroComponent :React.FC = () =>{
 			 
 			  
 			  setTimeout(()=>{
-				window.location.href="https://dev.nspace.com.br/";
+				window.location.href="http://localhost:3000/";
 			  },3000)
 			  
 			  

@@ -12,11 +12,11 @@ const Footer: React.FC =()=>{
 							
 							<div className="col-lg-3 col-md-4">
 								<div className="footer-widget">
-									<img src="../../assets/img/NSPACE-2.png" className="img-footer" alt="" />
+									<img src="../../assets/img/logo-branco.png" className="img-footer" alt="" />
 									<div className="footer-add">
-										<p>Minas gerais, Belo Horizonte 6594, Brasil.</p>
+										<p>Rio De Janeiro, Rio De Janeiro 6594, Brasil.</p>
 										<p>(41)XXXX-XXXX</p>
-										<p>nspace@example.com</p>
+										<p>rhouse@example.com</p>
 									</div>
 									
 								</div>
@@ -75,15 +75,12 @@ const Footer: React.FC =()=>{
 						<div className="row align-items-center">
 							
 							<div className="col-lg-6 col-md-6">
-								<p className="mb-0">Desenvolvido por ACESSOWEB DESIGN</p>
+								<p className="mb-0">Desenvolvido por <b>Allan Hipólito</b></p>
 							</div>
 							
 							<div className="col-lg-6 col-md-6 text-right">
 								<ul className="footer-bottom-social">
-									<li><a href="#"><i className="ti-facebook"></i></a></li>
-									<li><a href="#"><i className="ti-twitter"></i></a></li>
-									<li><a href="#"><i className="ti-instagram"></i></a></li>
-									<li><a href="#"><i className="ti-linkedin"></i></a></li>
+									<li><a href="https://www.linkedin.com/in/allan-hip%C3%B3lito-701994168/"><i className="ti-linkedin"></i></a></li>
 								</ul>
 							</div>
 							

@@ -6,8 +6,11 @@ import LogoNavBar from '../../components/LogoNavBar';
 import { useAuth } from '../../hooks/auth';
 import NavBarLoged from '../../components/NavBarLoged';
 import { loadScripts } from '../Home';
-import api from '../../services/api';
+import * as Yup from 'yup';
 import { useToast } from '../../hooks/toast';
+import api from '../../services/api';
+import getValidationError from '../../utils/getValidationErrors';
+
 
 interface UserObject{
     id: number,
@@ -23,14 +26,16 @@ interface UserObject{
 const DashBoard: React.FC = ()=>{
 	const {user,refreshUser}:any= useAuth();
 	const{addToast}=useToast();
-	const token =localStorage.getItem('@NSpace:token');
-
-	
+	const token =localStorage.getItem('@Rhouse:token');
+	const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+	const formRef=useRef<FormHandles>(null);
 	const history=useHistory();
 
 	const becomeLocatario = useCallback(async ()=>{
-		const id_user= user.id;
-		await api.post('/usuarios/becomeLocatario/'+id_user)
+
+		await api.post('/usuarios/becomeLocatario',{ headers:{
+			Authorization:'Bearer '+token
+		},})
 		addToast({
 			type:'info',
 			title:'Pedido de alteração de conta enviado',
@@ -38,15 +43,81 @@ const DashBoard: React.FC = ()=>{
 		  })
 		  
 		  setTimeout(()=>{
-			window.location.href="https://dev.nspace.com.br/dashboard";
+			window.location.href="http://localhost:3000/dashboard";
 		  },3000)
 
 	},[])
+
+	const handleUpdate=useCallback(async(data)=>{
+		console.log(data)
+		try{
+			
+			formRef.current?.setErrors({})
+	
+			const schema=Yup.object().shape({
+				nome_completo:Yup.string()
+				.required('Preenchimento obrigátorio'),
+				email:Yup.string()
+				.email("Digite um email válido")
+				.required("Email obrigatório"),
+				nome_usuario:Yup.string()
+				.required('Preenchimento obrigátorio'),
+				telefone: Yup.string().matches(phoneRegExp, 'Telefone não válido'),
+				cpf:Yup.string(),
+				cep:Yup.string(),
+				bairro:Yup.string(),
+				cidade:Yup.string(),
+				logradouro:Yup.string(),
+				complemento:Yup.string(),
+				numero:Yup.string(),
+				sobre_voce:Yup.string().max(301)
+
+				
+			});
+	
+			await schema.validate(data,{
+				abortEarly:false,
+			})
+
+
+			await api.put('/usuarios',{
+
+			},{headers:{
+				Authorization:'Bearer '+token
+			}})
+			addToast({
+				type:'success',
+				title:'Dados atualizados com sucesso !'
+			  })
+			  
+			  setTimeout(()=>{
+				window.location.href="http://localhost:3000/dashboard";
+			  },3000)
+				  
+	
+		}catch(err){
+			
+			if(err instanceof Yup.ValidationError){
+				const errors = getValidationError(err)
+				console.log(errors)
+				formRef.current?.setErrors(errors)
+			  }
+
+			  addToast({
+				type:'error',
+				title:'Erro na atualização de dados',
+				description:'Verifique os dados e tente novamente'
+			  });
+
+	
+		}
+			
+		},[])
+
 	
 	useEffect(() => {
 		if(user!=undefined){
 			refreshUser({
-				id:user.id,
 				token_received:token
 			})
 		}

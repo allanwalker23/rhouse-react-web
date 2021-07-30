@@ -8,7 +8,7 @@ import LogoNavBar from '../../components/LogoNavBar';
 import { cidades, locais, tiposLocais } from '../../utils/contents';
 import { useAuth } from '../../hooks/auth';
 import NavBarLoged from '../../components/NavBarLoged';
-import api from '../../services/api';
+
 import { loadScripts, Propriedade } from '../Home';
 
 
@@ -177,76 +177,6 @@ const Search:React.FC =()=>{
 									</div>
 
 									<div className="ameneties-features">
-										<div className="form-group" id="module">
-											<a role="button" className="" data-toggle="collapse" href="#advance-search" aria-expanded="true" aria-controls="advance-search"></a>
-										</div>
-										<div className="collapse" id="advance-search" aria-expanded="false" role="banner">
-											<ul className="no-ul-list">
-											<li>
-															<input id="a-1" className="checkbox-custom" name="a-1" type="checkbox"/>
-															<label htmlFor="a-1" className="checkbox-custom-label">Ar condicionado</label>
-														</li>
-														<li>
-															<input id="a-2" className="checkbox-custom" name="a-2" type="checkbox"/>
-															<label htmlFor="a-2" className="checkbox-custom-label">Sala de Jogos</label>
-														</li>
-														<li>
-															<input id="a-3" className="checkbox-custom" name="a-3" type="checkbox"/>
-															<label htmlFor="a-3" className="checkbox-custom-label">Sala De Cinema</label>
-														</li>
-														<li>
-															<input id="a-5" className="checkbox-custom" name="a-5" type="checkbox"/>
-															<label htmlFor="a-5" className="checkbox-custom-label">Acessibilidade</label>
-														</li>
-														<li>
-															<input id="a-6" className="checkbox-custom" name="a-6" type="checkbox"/>
-															<label htmlFor="a-6" className="checkbox-custom-label">Churrasqueira</label>
-														</li>
-														<li>
-															<input id="a-7" className="checkbox-custom" name="a-7" type="checkbox"/>
-															<label htmlFor="a-7" className="checkbox-custom-label">Isolamento acústico</label>
-														</li>
-														<li>
-															<input id="a-8" className="checkbox-custom" name="a-8" type="checkbox"/>
-															<label htmlFor="a-8" className="checkbox-custom-label">Sistema de Som</label>
-														</li>
-														<li>
-															<input id="a-8" className="checkbox-custom" name="a-8" type="checkbox"/>
-															<label htmlFor="a-8" className="checkbox-custom-label">Sistema de Luzes</label>
-														</li>
-														<li>
-															<input id="a-9" className="checkbox-custom" name="a-9" type="checkbox"/>
-															<label htmlFor="a-9" className="checkbox-custom-label">Jacuzzi</label>
-														</li>
-														<li>
-															<input id="a-10" className="checkbox-custom" name="a-10" type="checkbox"/>
-															<label htmlFor="a-10" className="checkbox-custom-label">Wi-Fi</label>
-														</li>
-														<li>
-															<input id="a-11" className="checkbox-custom" name="a-11" type="checkbox"/>
-															<label htmlFor="a-11" className="checkbox-custom-label">Piscina</label>
-														</li>
-														<li>
-															<input id="a-12" className="checkbox-custom" name="a-12" type="checkbox"/>
-															<label htmlFor="a-12" className="checkbox-custom-label">Estacionamento</label>
-														</li>
-
-														<li>
-															<input id="a-13" className="checkbox-custom" name="a-13" type="checkbox"/>
-															<label htmlFor="a-13" className="checkbox-custom-label">Sauna</label>
-														</li>
-
-														<li>
-															<input id="a-14" className="checkbox-custom" name="a-14" type="checkbox"/>
-															<label htmlFor="a-14" className="checkbox-custom-label">Área de Lazer</label>
-														</li>
-
-														<li>
-															<input id="a-15" className="checkbox-custom" name="a-15" type="checkbox"/>
-															<label htmlFor="a-15" className="checkbox-custom-label">Playground</label>
-														</li>
-											</ul>
-										</div>
 										
 										<button className="btn btn-theme full-width">Encontrar novos locais</button>
 									

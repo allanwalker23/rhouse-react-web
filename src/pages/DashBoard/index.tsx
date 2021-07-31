@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import Footer from '../../components/Footer';
 import SectionCallAction from '../../components/SectionCallAction';
 import {Link, useHistory} from 'react-router-dom';
@@ -10,6 +10,11 @@ import * as Yup from 'yup';
 import { useToast } from '../../hooks/toast';
 import api from '../../services/api';
 import getValidationError from '../../utils/getValidationErrors';
+import { FormHandles } from '@unform/core';
+import InputUpdateUser from '../../components/InputsUpdateUser/InputUser';
+import { TextArea } from '../../components/InputsCadastroPropriedade/TextAreaPropriedade/styles';
+import TextAreaUpdate from '../../components/InputsUpdateUser/TextAreaUpdateUser';
+import { Form } from '@unform/web';
 
 
 interface UserObject{
@@ -49,7 +54,8 @@ const DashBoard: React.FC = ()=>{
 	},[])
 
 	const handleUpdate=useCallback(async(data)=>{
-		console.log(data)
+		
+		
 		try{
 			
 			formRef.current?.setErrors({})
@@ -66,7 +72,6 @@ const DashBoard: React.FC = ()=>{
 				cpf:Yup.string(),
 				cep:Yup.string(),
 				bairro:Yup.string(),
-				cidade:Yup.string(),
 				logradouro:Yup.string(),
 				complemento:Yup.string(),
 				numero:Yup.string(),
@@ -78,16 +83,28 @@ const DashBoard: React.FC = ()=>{
 			await schema.validate(data,{
 				abortEarly:false,
 			})
-
-
+			
+		
 			await api.put('/usuarios',{
-
+				nome_completo:data.nome_completo,
+				nome_usuario:data.nome_usuario,
+				email:data.email,
+				telefone:data.telefone,
+				cpf:data.cpf,
+				cep:data.cep,
+				bairro:data.bairro,
+				logradouro:data.logradouro,
+				complemento:data.complemento,
+				numero:data.numero || null,
+				sobre_voce:data.sobre_voce
 			},{headers:{
 				Authorization:'Bearer '+token
 			}})
+
+
 			addToast({
 				type:'success',
-				title:'Dados atualizados com sucesso !'
+				title:'Dados atualizados com sucesso!'
 			  })
 			  
 			  setTimeout(()=>{
@@ -133,7 +150,7 @@ const DashBoard: React.FC = ()=>{
 			  // history.push({pathname:'/error'})
 		   //}
 	   //})
-		loadScripts();
+		//loadScripts();
 	});
 
 
@@ -332,7 +349,7 @@ const DashBoard: React.FC = ()=>{
 					
 							<div className="dashboard-wraper">
 							
-								
+								<Form ref={formRef} onSubmit={handleUpdate}>
 								<div className="form-submit">	
 									<h4>Minha Conta</h4>
 									<div className="submit-section">
@@ -340,61 +357,66 @@ const DashBoard: React.FC = ()=>{
 										
 											<div className="form-group col-md-6">
 												<label>Seu Nome</label>
-												<input type="text" className="form-control" placeholder="Rodrigo Alves" value={user.nome_completo}/>
+												<InputUpdateUser name="nome_completo" type="text" placeholder="Rodrigo Alves" value={user.nome_completo}/>
+											</div>
+
+											<div className="form-group col-md-6">
+												<label>Nome de usuário</label>
+												<InputUpdateUser name="nome_usuario" type="text" placeholder="Rodrigo1982" value={user.nome_usuario}/>
 											</div>
 											
 											<div className="form-group col-md-6">
 												<label>Email</label>
-												<input type="email" className="form-control" placeholder="rodrigo@gmail.com" value={user.email}/>
+												<InputUpdateUser name="email" type="email" placeholder="rodrigo@gmail.com" value={user.email}/>
 											</div>
 											
 											
 											<div className="form-group col-md-6">
 												<label>Telefone</label>
-												<input type="text" className="form-control" placeholder="(XX)XXXX-XXXX" value={user.telefone}/>
+												<InputUpdateUser name="telefone" type="text" placeholder="(XX)XXXX-XXXX" value={user.telefone}/>
 											</div>
 											
 											<div className="form-group col-md-6">
 												<label>CPF(Apenas digítos)</label>
-												<input type="text" className="form-control" placeholder="XXX.XXX.XXX-XX" value={user.cpf}/>
+												<InputUpdateUser name="cpf" type="text" placeholder="XXX.XXX.XXX-XX" value={user.cpf || null}/>
 											</div>
 											
 											<div className="form-group col-md-6">
 												<label>CEP</label>
-												<input type="text" className="form-control" placeholder="XXXX-XXX" value={user.cep}/>
+												<InputUpdateUser name="cep" type="text" placeholder="XXXX-XXX" value={user.cep || null}/>
 											</div>
 											
 											<div className="form-group col-md-6">
 												<label>Bairro</label>
-												<input type="text" className="form-control" placeholder="Barra Da Tijuca" value={user.bairro}/>
+												<InputUpdateUser name="bairro" type="text" placeholder="Barra Da Tijuca" value={user.bairro || null}/>
 											</div>
 
 											<div className="form-group col-md-6">
 												<label>Cidade</label>
-												<input type="text" className="form-control" placeholder="Rio De Janeiro" value={user.cidade}/>
+												<InputUpdateUser name="cidade" type="text" placeholder="Rio De Janeiro" value={user.cidade || null}/>
 											</div>
 
 
 											<div className="form-group col-md-6">
 												<label>Logradouro</label>
-												<input type="text" className="form-control" placeholder="Rua Fictícia" value={user.logradouro}/>
+												<InputUpdateUser name="logradouro" type="text" placeholder="Rua Fictícia" value={user.logradouro || null}/>
 											</div>
 
 
 											<div className="form-group col-md-6">
 												<label>Complemento</label>
-												<input type="text" className="form-control" placeholder="Casa" value={user.complemento}/>
+												<InputUpdateUser name="complemento" type="text" placeholder="Casa" value={user.complemento || null}/>
 											</div>
 
 
 											<div className="form-group col-md-6">
 												<label>Número</label>
-												<input type="text" className="form-control" placeholder="729" value={user.numero}/>
+												<InputUpdateUser name="numero" type="text" placeholder="729" value={user.numero || null}/>
 											</div>
 											
 											<div className="form-group col-md-12">
 												<label>Sobre você(Max 301 caracteres)</label>
-												<textarea className="form-control">{user.sobre_voce}</textarea>
+												<TextAreaUpdate name="sobre_voce">{user.sobre_voce}</TextAreaUpdate>
 											</div>
 											
 														
@@ -406,7 +428,7 @@ const DashBoard: React.FC = ()=>{
 									</div>
 								</div>
 								
-								
+								</Form>
 								
 							</div>
 						</div>
